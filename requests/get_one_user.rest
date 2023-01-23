@@ -1,0 +1,7 @@
+# Get an existing user
+GET http://localhost:3001/api/users/PrPr
+
+###
+
+# Get a non existing user
+GET http://localhost:3001/api/users/unknown

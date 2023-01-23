@@ -1,0 +1,33 @@
+# Create a new user
+
+# With all the fields (required & not-required)
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "name": "Prueba Post",
+  "description": "Descripcion del usuario ...",
+  "password": "p4ssw0rd"
+}
+
+###
+
+# Without not-required
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "name": "Prueba Post",
+  "password": "p4ssw0rd"
+}
+
+###
+
+# Without required
+POST http://localhost:3001/api/users
+content-type: application/json
+
+{
+}

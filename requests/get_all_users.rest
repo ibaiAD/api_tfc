@@ -1,0 +1,2 @@
+#Get all users from the Data Base
+GET http://localhost:3001/api/users
