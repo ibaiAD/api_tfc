@@ -27,7 +27,7 @@ const usersDAO = {
     let res
     let err
 
-    const { userName, name, description, password } = u
+    const { userName, name, description, password, role } = u
     let passwordHash
 
     if (!userName) {
@@ -45,11 +45,16 @@ const usersDAO = {
       return { res, err }
     }
 
+    if (!role) {
+      err = { "required_field_missing": "role" }
+      return { res, err }
+    }
+
     const saltRounds = 10
-    passwordHash = await bcrypt.hash(u.password, saltRounds)
+    passwordHash = await bcrypt.hash(password, saltRounds)
     console.log(passwordHash)
 
-    console.log(userName, name, description, password)
+    console.log(userName, name, description, password, role)
 
     try {
       res = await prisma.user.create({
@@ -57,7 +62,8 @@ const usersDAO = {
           userName: userName,
           name: name,
           description: description,
-          passwordHash: passwordHash
+          passwordHash: passwordHash,
+          role: role
         }
       })
     } catch (error) {
