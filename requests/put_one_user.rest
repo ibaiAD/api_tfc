@@ -1,0 +1,77 @@
+# Update a user
+
+# Update userName
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "userName",
+  "new": "Pruebas_uN"
+}
+
+###
+
+# Update name
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "name",
+  "new": "Pepe Pepez"
+}
+
+###
+
+# Update description
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "description",
+  "new": "Usuario para pruebas actualizado"
+}
+
+###
+
+# Update password
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "password",
+  "new": "1234"
+}
+
+###
+
+# Update role
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "role",
+  "new": "prueba"
+}
+
+###
+
+# Update non existing field
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Pruebas",
+  "password": "123",
+  "field": "unknown",
+  "new": "prueba"
+}

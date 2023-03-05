@@ -9,11 +9,12 @@ const prisma = new PrismaClient()
 
 app.use(express.json())
 
-app.use(requestLogger)
+// Statics ---------------------------->
+app.use('/', express.static('public'))
+app.use('/documentation', express.static('public/documentation.html'))
+// <------------------------------------
 
-app.get('/', (request, response) => {
-  response.send('<h1>Pruebas API</h1>')
-})
+app.use(requestLogger)
 
 // Endpoints api/users ---------------->
 app.use('/api/users', usersRouter)

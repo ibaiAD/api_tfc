@@ -83,4 +83,38 @@ usersRouter.delete('/:uName', async (request, response) => {
 
 })
 
+async function updateUserName(response) {
+  return response.json({ msg: 'userName Updated' })
+}
+
+// Delete when finish
+async function toDo(response, field) {
+  return response.status(623).send({ msg: 'TODO ' + field })
+}
+
+usersRouter.put('/', async (request, response) => {
+
+  const FIELDS = new Map([
+    ['userName', (response) => updateUserName(response)],
+    ['name', (response) => toDo(response, field)],
+    ['description', (response) => toDo(response, field)],
+    ['password', (response) => toDo(response, field)],
+    ['role', (response) => toDo(response, field)]
+  ])
+  const user = request.body
+  const { field } = user
+
+  if (!FIELDS.has(field)) {
+    return response.status(400).send({ error: 'invalid field' })
+  }
+
+  if (field === 'role') {
+    // TODO check authorization
+    return response.status(401).send({ error: 'not allowed' })
+  }
+
+  return FIELDS.get(field)(response)
+
+})
+
 module.exports = usersRouter
