@@ -8,7 +8,7 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "userName",
-  "new": "Pruebas_uN"
+  "newData": "Pruebas_uN"
 }
 
 ###
@@ -21,7 +21,7 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "name",
-  "new": "Pepe Pepez"
+  "newData": "Pepe Pepez"
 }
 
 ###
@@ -34,7 +34,7 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "description",
-  "new": "Usuario para pruebas actualizado"
+  "newData": "Usuario para pruebas actualizado"
 }
 
 ###
@@ -47,7 +47,7 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "password",
-  "new": "1234"
+  "newData": "1234"
 }
 
 ###
@@ -60,7 +60,7 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "role",
-  "new": "prueba"
+  "newData": "prueba"
 }
 
 ###
@@ -73,5 +73,5 @@ content-type: application/json
   "userName": "Pruebas",
   "password": "123",
   "field": "unknown",
-  "new": "prueba"
+  "newData": "prueba"
 }

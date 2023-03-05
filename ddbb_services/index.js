@@ -74,17 +74,41 @@ const usersDAO = {
 
   // Elimina un usuario por su userName
   deleteUserByName: async function deleteUserByName(uName) {
+    let res
+    let err
     try {
-      const u = await prisma.user.delete({
+      res = await prisma.user.delete({
         where: {
           userName: uName
         }
       })
-      return u
+
     } catch (error) {
-      return null
+      err = error
     }
+    return { res, err }
+  },
+
+  // Actualiza el userName de un usuario
+  updateUserUserName: async function updateUserUserName(uName, newData) {
+    console.log('updateUserUserName')
+    let res, err
+    try {
+      res = await prisma.user.update({
+        where: {
+          userName: uName
+        },
+        data: {
+          userName: newData,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      err = error
+    }
+    return { res, err }
   }
+
 }
 /* ****************************************************************************** */
 
