@@ -75,3 +75,16 @@ content-type: application/json
   "field": "unknown",
   "newData": "prueba"
 }
+
+###
+
+# Update non existing user's name
+PUT http://localhost:3001/api/users
+content-type: application/json
+
+{
+  "userName": "Unknown",
+  "password": "123",
+  "field": "name",
+  "newData": "prueba"
+}

@@ -50,13 +50,14 @@ const usersDAO = {
       return { res, err }
     }
 
-    const saltRounds = 10
-    passwordHash = await bcrypt.hash(password, saltRounds)
-    console.log(passwordHash)
-
-    console.log(userName, name, description, password, role)
-
     try {
+      // Encrypts Password --------------------------------->
+      const saltRounds = 10
+      passwordHash = await bcrypt.hash(password, saltRounds)
+      // <---------------------------------------------------
+      console.log(passwordHash)
+      console.log(userName, name, description, password, role)
+
       res = await prisma.user.create({
         data: {
           userName: userName,
@@ -100,6 +101,95 @@ const usersDAO = {
         },
         data: {
           userName: newData,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      err = error
+    }
+    return { res, err }
+  },
+
+  // Actualiza el userName de un usuario
+  updateUserName: async function updateUserName(uName, newData) {
+    console.log('updateUserName')
+    let res, err
+    try {
+      res = await prisma.user.update({
+        where: {
+          userName: uName
+        },
+        data: {
+          name: newData,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      err = error
+    }
+    return { res, err }
+  },
+
+  // Actualiza el userName de un usuario
+  updateUserDescription: async function updateUserDescription(uName, newData) {
+    console.log('updateUserDescription')
+    let res, err
+    try {
+      res = await prisma.user.update({
+        where: {
+          userName: uName
+        },
+        data: {
+          description: newData,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      err = error
+    }
+    return { res, err }
+  },
+
+  // TODO ------------------------------------>
+
+  // Actualiza la contraseña de un usuario
+  updateUserPassword: async function updateUserPassword(uName, newData) {
+    console.log('updateUserPassword')
+    let res, err, passwordHash
+    try {
+      // Encrypts Password --------------------------------->
+      const saltRounds = 10
+      passwordHash = await bcrypt.hash(newData, saltRounds)
+      // <---------------------------------------------------
+
+      res = await prisma.user.update({
+        where: {
+          userName: uName
+        },
+        data: {
+          passwordHash: passwordHash,
+        },
+      })
+    } catch (error) {
+      console.log(error)
+      err = error
+    }
+    return { res, err }
+  },
+
+  // <-----------------------------------------
+
+  // Actualiza el rol de un usuario
+  updateUserRole: async function updateUserRole(uName, newData) {
+    console.log('updateUserRole')
+    let res, err
+    try {
+      res = await prisma.user.update({
+        where: {
+          userName: uName
+        },
+        data: {
+          role: newData,
         },
       })
     } catch (error) {

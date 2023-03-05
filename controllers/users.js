@@ -10,6 +10,12 @@ const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
 usersRouter.get('/', async (request, response) => {
   try {
     allUsers = await usersDAO.getAllUsers()
+
+    // deletes password from the users before returning them
+    allUsers.forEach(user => {
+      delete user.passwordHash
+    });
+
     response.json(allUsers)
 
   } catch (error) {
@@ -25,6 +31,9 @@ usersRouter.get('/:uName', async (request, response) => {
   const uName = request.params.uName
   try {
     const userFound = await usersDAO.getUserByUserName(uName)
+
+    // deletes password from the user before returning it
+    userFound ? delete userFound.passwordHash : null
 
     userFound
       ? response.json(userFound)
@@ -109,10 +118,10 @@ usersRouter.put('/', async (request, response) => {
 
   const FIELDS = new Map([
     ['userName', () => usersDAO.updateUserUserName(userName, newData)],
-    ['name', () => toDo(response, field)],
-    ['description', () => toDo(response, field)],
-    ['password', () => toDo(response, field)],
-    ['role', () => toDo(response, field)]
+    ['name', () => usersDAO.updateUserName(userName, newData)],
+    ['description', () => usersDAO.updateUserDescription(userName, newData)],
+    ['password', () => usersDAO.updateUserPassword(userName, newData)],
+    ['role', () => usersDAO.updateUserRole(userName, newData)]
   ])
 
   const user = request.body
@@ -124,7 +133,9 @@ usersRouter.put('/', async (request, response) => {
 
   if (field === 'role') {
     // TODO check authorization
-    return response.status(401).send({ error: 'not allowed' })
+    if (user.token !== 'seguridad') {
+      return response.status(401).send({ error: 'not allowed' })
+    }
   }
 
   try {
