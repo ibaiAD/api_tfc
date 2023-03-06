@@ -1,11 +1,12 @@
 const express = require('express')
 const app = express()
 const { PrismaClient } = require('@prisma/client')
-const { requestLogger, unknownEndpoint } = require('./middlewares')
-// const { usersDAO } = require('./ddbb_services')
-const usersRouter = require('./controllers/users')
-
 const prisma = new PrismaClient()
+
+const { requestLogger, unknownEndpoint } = require('./middlewares')
+
+const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 app.use(express.json())
 
@@ -18,6 +19,10 @@ app.use(requestLogger)
 
 // Endpoints api/users ---------------->
 app.use('/api/users', usersRouter)
+// <------------------------------------
+
+// Endpoints api/login ---------------->
+app.use('/api/login', loginRouter)
 // <------------------------------------
 
 app.use(unknownEndpoint)

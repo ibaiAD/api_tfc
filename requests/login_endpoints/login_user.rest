@@ -1,0 +1,32 @@
+# Login as a user
+
+# Login as an existing user
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "password": "p4ssw0rd"
+}
+
+###
+
+# Login as a non existing user
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+  "userName": "Unknown",
+  "password": "p4ssw0rd"
+}
+
+###
+
+# Login with wrong password
+POST http://localhost:3001/api/login
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "password": "password"
+}

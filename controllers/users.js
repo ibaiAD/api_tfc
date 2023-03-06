@@ -1,9 +1,8 @@
-const { PrismaClient } = require('@prisma/client')
-const { usersDAO } = require('../ddbb_services')
 const usersRouter = require('express').Router()
-
+const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const { usersDAO } = require('../ddbb_services')
 const { PRISMA_CODES } = require('../utils/prisma_codes')
 const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
 
