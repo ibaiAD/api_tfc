@@ -7,6 +7,7 @@ const { requestLogger, unknownEndpoint } = require('./middlewares')
 
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const productsRouter = require('./controllers/products')
 
 app.use(express.json())
 
@@ -17,13 +18,17 @@ app.use('/documentation', express.static('public/documentation.html'))
 
 app.use(requestLogger)
 
-// Endpoints api/users ---------------->
+// Endpoints api/users ------------------->
 app.use('/api/users', usersRouter)
-// <------------------------------------
+// <---------------------------------------
 
-// Endpoints api/login ---------------->
+// Endpoints api/login ------------------->
 app.use('/api/login', loginRouter)
-// <------------------------------------
+// <---------------------------------------
+
+// Endpoints api/products ---------------->
+app.use('/api/products', productsRouter)
+// <---------------------------------------
 
 app.use(unknownEndpoint)
 
