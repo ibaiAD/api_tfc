@@ -3,6 +3,9 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const { productsDAO } = require('../ddbb_services')
+const { PRISMA_CODES } = require('../utils/prisma_codes')
+const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
+const userExtractor = require('../middlewares/userExtractor')
 
 productsRouter.get('/', async (request, response) => {
   try {
@@ -18,15 +21,35 @@ productsRouter.get('/', async (request, response) => {
   }
 })
 
-productsRouter.post('/', async (request, response) => {
-  console.log('Llega a: producsRouter post')
+productsRouter.post('/', userExtractor, async (request, response) => {
 
-  // TODO: extraer el userId del token y añadirlo a la request
   const product = request.body
 
   try {
-    await productsDAO.createProduct(product)
-    response.json(product)
+    const { res, err } = await productsDAO.createProduct(product)
+
+    if (typeof res === 'undefined') {
+      const { code, meta } = err
+      // Gestion errores
+      console.log(code)
+      if (PRISMA_CODES_400.includes(code)) {
+        return response.status(400).send({ 'error': meta })
+      }
+      if (PRISMA_CODES_404.includes(code)) {
+        return response.status(404).send({ 'error': meta })
+      }
+      if (PRISMA_CODES_409.includes(code)) {
+        return response.status(409).send({ 'error': meta })
+      }
+      console.log(err)
+      return response.status(600).send({ 'error': err })
+
+    } else {
+      return response.status(201).json(res)
+    }
+
+
+
   } catch (error) {
     console.error(error)
     process.exit(1)

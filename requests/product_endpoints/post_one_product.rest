@@ -12,6 +12,19 @@ content-type: application/json
 
 ###
 
+# With all the fields (required & not-required) and token
+POST http://localhost:3001/api/products
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTE2MDQ3NiwiZXhwIjoxNjc5MTY0MDc2fQ.zzc2ovAsK03uQK3gACLNsoPx7eaAcQf38CL4VhzqlOA
+
+{
+  "name": "Producto Prueba A",
+  "description": "Descripcion del producto ...",
+  "userId": 12
+}
+
+###
+
 # Without not-required
 POST http://localhost:3001/api/products
 content-type: application/json
@@ -28,4 +41,16 @@ POST http://localhost:3001/api/products
 content-type: application/json
 
 {
+}
+
+###
+
+# With non existing userId
+POST http://localhost:3001/api/products
+content-type: application/json
+
+{
+  "name": "Producto Prueba A",
+  "description": "Descripcion del producto ...",
+  "userId": 90
 }

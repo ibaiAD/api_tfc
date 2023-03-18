@@ -4,6 +4,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const { requestLogger, unknownEndpoint } = require('./middlewares')
+const handleErrors = require('./middlewares/handleErrors')
 
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
@@ -31,6 +32,7 @@ app.use('/api/products', productsRouter)
 // <---------------------------------------
 
 app.use(unknownEndpoint)
+app.use(handleErrors)
 
 const PORT = 3001
 app.listen(PORT, () => {
