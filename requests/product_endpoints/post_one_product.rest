@@ -6,7 +6,8 @@ content-type: application/json
 
 {
   "name": "Producto Prueba A",
-  "description": "Descripcion del producto ..."
+  "description": "Descripcion del producto ...",
+  "userId": 12
 }
 
 ###
@@ -16,7 +17,8 @@ POST http://localhost:3001/api/products
 content-type: application/json
 
 {
-"name": "Producto Prueba NR"
+"name": "Producto Prueba NR",
+"userId": 54
 }
 
 ###

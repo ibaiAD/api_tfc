@@ -17,6 +17,38 @@ const productsDAO = {
     })
     return p
   },
+
+  // Crea un nuevo producto
+  createProduct: async function createProduct(p) {
+    let res, err
+    const { name, description, userId } = p
+    console.log(userId)
+
+    if (!name) {
+      err = { "required_field_missing": "name" }
+      return { res, err }
+    }
+
+    if (!userId) {
+      err = { "required_field_missing": "userId" }
+      return { res, err }
+    }
+
+    try {
+      res = await prisma.product.create({
+        data: {
+          name: name,
+          description: description,
+          userId: userId
+        }
+      })
+    } catch (error) {
+      err = error
+    }
+
+    return { res, err }
+
+  },
 }
 
 module.exports = productsDAO

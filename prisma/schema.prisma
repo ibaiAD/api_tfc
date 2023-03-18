@@ -18,6 +18,7 @@ model User {
   description     String?     @db.VarChar(200)
   passwordHash    String      @db.VarChar(100)
   role            String      @db.VarChar(20)
+  products        Product[]
 }
 
 // Product Model
@@ -25,4 +26,6 @@ model Product {
   id              Int         @id @default(autoincrement())
   name            String      @unique @db.VarChar(50)
   description     String?     @db.VarChar(200)
+  user            User        @relation(fields: [userId], references: [id])
+  userId          Int         
 }
