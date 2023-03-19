@@ -5,6 +5,7 @@ const prisma = new PrismaClient()
 const { productsDAO } = require('../ddbb_services')
 const { PRISMA_CODES } = require('../utils/prisma_codes')
 const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
+const USER_ROLES = require('../utils/user_roles')
 const userExtractor = require('../middlewares/userExtractor')
 
 productsRouter.get('/', async (request, response) => {
@@ -22,11 +23,11 @@ productsRouter.get('/', async (request, response) => {
 })
 
 productsRouter.post('/', userExtractor, async (request, response) => {
-
   const product = request.body
+  const { user } = request
 
   try {
-    const { res, err } = await productsDAO.createProduct(product)
+    const { res, err } = await productsDAO.createProduct(product, user.id)
 
     if (typeof res === 'undefined') {
       const { code, meta } = err
@@ -48,16 +49,30 @@ productsRouter.post('/', userExtractor, async (request, response) => {
       return response.status(201).json(res)
     }
 
-
-
   } catch (error) {
     console.error(error)
     process.exit(1)
   } finally {
     await prisma.$disconnect()
   }
+})
 
+productsRouter.delete('/', userExtractor, async (request, response) => {
+  const product = request.body
+  const { user } = request
 
+  const foundProduct = await productsDAO.getProductByName(product.name)
+
+  if (!foundProduct) {
+    return response.status(400).send({ 'error': 'Product not found' })
+  }
+
+  if (user.role === USER_ROLES.admin || user.id === foundProduct.userId) {
+    // delete product
+    return response.status(204).end()
+  }
+
+  return response.status(401).send({ 'error': 'invalid user' })
 
 })
 

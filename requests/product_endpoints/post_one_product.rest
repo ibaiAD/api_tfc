@@ -1,26 +1,24 @@
 # Create a new product
 
-# With all the fields (required & not-required)
+# With all the fields (required & not-required) and token
 POST http://localhost:3001/api/products
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
 
 {
   "name": "Producto Prueba A",
-  "description": "Descripcion del producto ...",
-  "userId": 12
+  "description": "Descripcion del producto ..."
 }
 
 ###
 
-# With all the fields (required & not-required) and token
+# With all the fields (required & not-required) but NO TOKEN
 POST http://localhost:3001/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTE2MDQ3NiwiZXhwIjoxNjc5MTY0MDc2fQ.zzc2ovAsK03uQK3gACLNsoPx7eaAcQf38CL4VhzqlOA
 
 {
   "name": "Producto Prueba A",
-  "description": "Descripcion del producto ...",
-  "userId": 12
+  "description": "Descripcion del producto ..."
 }
 
 ###
@@ -28,10 +26,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOY
 # Without not-required
 POST http://localhost:3001/api/products
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
 
 {
-"name": "Producto Prueba NR",
-"userId": 54
+"name": "Producto Prueba NR"
 }
 
 ###
@@ -39,18 +37,7 @@ content-type: application/json
 # Without ALL required
 POST http://localhost:3001/api/products
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
 
 {
-}
-
-###
-
-# With non existing userId
-POST http://localhost:3001/api/products
-content-type: application/json
-
-{
-  "name": "Producto Prueba A",
-  "description": "Descripcion del producto ...",
-  "userId": 90
 }

@@ -19,10 +19,9 @@ const productsDAO = {
   },
 
   // Crea un nuevo producto
-  createProduct: async function createProduct(p) {
+  createProduct: async function createProduct(p, userId) {
     let res, err
-    const { name, description, userId } = p
-    console.log(userId)
+    const { name, description } = p
 
     if (!name) {
       err = { "required_field_missing": "name" }
@@ -48,6 +47,11 @@ const productsDAO = {
 
     return { res, err }
 
+  },
+
+  // Elimina un producto
+  deleteProductByName: async function deleteProductByName(pName) {
+    // TODO
   },
 }
 
