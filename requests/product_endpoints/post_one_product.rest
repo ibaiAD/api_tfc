@@ -3,7 +3,7 @@
 # With all the fields (required & not-required) and token
 POST http://localhost:3001/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTczODQyNywiZXhwIjoxNjc5NzQyMDI3fQ.f0kyzYIC2WuhPEHOaAz4PNTSsthYZmohKLNNy2Haxs8
 
 {
   "name": "Producto Prueba A",
@@ -26,7 +26,7 @@ content-type: application/json
 # Without not-required
 POST http://localhost:3001/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTczODQyNywiZXhwIjoxNjc5NzQyMDI3fQ.f0kyzYIC2WuhPEHOaAz4PNTSsthYZmohKLNNy2Haxs8
 
 {
 "name": "Producto Prueba NR"
@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOY
 # Without ALL required
 POST http://localhost:3001/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTczODQyNywiZXhwIjoxNjc5NzQyMDI3fQ.f0kyzYIC2WuhPEHOaAz4PNTSsthYZmohKLNNy2Haxs8
 
 {
 }

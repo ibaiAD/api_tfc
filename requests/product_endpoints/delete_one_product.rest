@@ -3,10 +3,40 @@
 # With all the fields (required & not-required) and token
 DELETE  http://localhost:3001/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTIyNTU5NCwiZXhwIjoxNjc5MjI5MTk0fQ.lPtjd8xoAFcpLkcvCHlWx7jwVCM2gALN5ho2WsoAYXY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
 
 {
-  "name": "Producto Prueba NR"
+  "id": 41
 }
 
 ###
+
+# Non Existing product
+DELETE  http://localhost:3001/api/products
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+
+{
+  "id": 20
+}
+
+###
+
+# Without ALL required
+DELETE  http://localhost:3001/api/products
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+
+{
+}
+
+###
+
+# With wrong id type
+DELETE  http://localhost:3001/api/products
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+
+{
+  "id": "41"
+}

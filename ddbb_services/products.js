@@ -8,14 +8,31 @@ const productsDAO = {
     return allProducts
   },
 
-  // Devuelve un producto por su name
-  getProductByName: async function getProductByName(name) {
-    const p = await prisma.product.findUnique({
-      where: {
-        name: name
-      }
-    })
-    return p
+  // Devuelve un producto por su id
+  getProductById: async function getProductById(id) {
+    let res, err
+
+    if (!id) {
+      err = { "required_field_missing": "id" }
+      return { res, err }
+    }
+
+    if (typeof id !== 'number' && typeof id === 'string') {
+      err = { "Provided String, expected Int": "id" }
+      return { res, err }
+    }
+
+    try {
+      res = await prisma.product.findUnique({
+        where: {
+          id: id
+        }
+      })
+    } catch (error) {
+      err = error
+    }
+
+    return { res, err }
   },
 
   // Crea un nuevo producto
@@ -49,9 +66,21 @@ const productsDAO = {
 
   },
 
-  // Elimina un producto
-  deleteProductByName: async function deleteProductByName(pName) {
+  // Elimina un producto por Id
+  deleteProductById: async function deleteProductById(pId) {
     // TODO
+    let res, err
+
+    try {
+      res = await prisma.product.delete({
+        where: {
+          id: pId,
+        },
+      })
+    } catch (error) {
+      err = error
+    }
+    return { res, err }
   },
 }
 

@@ -61,14 +61,49 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
 
-  const foundProduct = await productsDAO.getProductByName(product.name)
+  const { res, err } = await productsDAO.getProductById(product.id)
 
-  if (!foundProduct) {
-    return response.status(400).send({ 'error': 'Product not found' })
+  if (res === null) {
+    console.log('error: ', err)
+    return response.status(400).send({ 'error': 'product not found' })
   }
 
-  if (user.role === USER_ROLES.admin || user.id === foundProduct.userId) {
+  if (typeof res === 'undefined') {
+    const { code, meta } = err
+    // Gestion errores
+    console.log(code)
+    if (PRISMA_CODES_400.includes(code)) {
+      return response.status(400).send({ 'error': meta })
+    }
+    if (PRISMA_CODES_404.includes(code)) {
+      return response.status(404).send({ 'error': meta })
+    }
+    if (PRISMA_CODES_409.includes(code)) {
+      return response.status(409).send({ 'error': meta })
+    }
+
+    return response.status(400).send({ 'error': err })
+  }
+
+  if (user.role === USER_ROLES.admin || user.id === res.userId) {
     // delete product
+    const { res, err } = await productsDAO.deleteProductById(product.id)
+    if (typeof res === 'undefined') {
+      const { code, meta } = err
+      // Gestion errores
+      console.log(code)
+      if (PRISMA_CODES_400.includes(code)) {
+        return response.status(400).send({ 'error': meta })
+      }
+      if (PRISMA_CODES_404.includes(code)) {
+        return response.status(404).send({ 'error': meta })
+      }
+      if (PRISMA_CODES_409.includes(code)) {
+        return response.status(409).send({ 'error': meta })
+      }
+
+      return response.status(400).send({ 'error': err })
+    }
     return response.status(204).end()
   }
 
