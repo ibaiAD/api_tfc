@@ -12,7 +12,7 @@ const productsDAO = {
   getProductById: async function getProductById(id) {
     let res, err
 
-    if (!id) {
+    if (!id && id !== 0) {
       err = { "required_field_missing": "id" }
       return { res, err }
     }
@@ -68,7 +68,6 @@ const productsDAO = {
 
   // Elimina un producto por Id
   deleteProductById: async function deleteProductById(pId) {
-    // TODO
     let res, err
 
     try {
@@ -82,6 +81,12 @@ const productsDAO = {
     }
     return { res, err }
   },
+
+  // Actualiza un producto por Id
+  updateProductById: async function updateProductById(pId) {
+    // TODO
+    
+  }
 }
 
 module.exports = productsDAO

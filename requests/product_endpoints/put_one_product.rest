@@ -1,18 +1,18 @@
-# Delete a product
+# Update a product
 
 # With all the fields (required & not-required) and token
-DELETE  {{baseUrl}}/api/products
+PUT  {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
-  "id": 42
+  "id": 47
 }
 
 ###
 
 # Non Existing product
-DELETE  {{baseUrl}}/api/products
+PUT  {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
 
@@ -22,21 +22,13 @@ Authorization: Bearer {{authorization}}
 
 ###
 
-# Without ALL required
-DELETE  {{baseUrl}}/api/products
+# With wrong id type
+PUT  {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
+  "id": "2"
 }
 
 ###
-
-# With wrong id type
-DELETE  {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
-
-{
-  "id": "41"
-}

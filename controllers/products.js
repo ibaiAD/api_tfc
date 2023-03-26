@@ -61,15 +61,15 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
 
-  const { res, err } = await productsDAO.getProductById(product.id)
+  const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
 
-  if (res === null) {
-    console.log('error: ', err)
+  if (getRes === null) {
+    console.log('error: ', getErr)
     return response.status(400).send({ 'error': 'product not found' })
   }
 
-  if (typeof res === 'undefined') {
-    const { code, meta } = err
+  if (typeof getRes === 'undefined') {
+    const { code, meta } = getErr
     // Gestion errores
     console.log(code)
     if (PRISMA_CODES_400.includes(code)) {
@@ -82,33 +82,79 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
       return response.status(409).send({ 'error': meta })
     }
 
-    return response.status(400).send({ 'error': err })
+    return response.status(400).send({ 'error': getErr })
   }
 
-  if (user.role === USER_ROLES.admin || user.id === res.userId) {
-    // delete product
-    const { res, err } = await productsDAO.deleteProductById(product.id)
-    if (typeof res === 'undefined') {
-      const { code, meta } = err
-      // Gestion errores
-      console.log(code)
-      if (PRISMA_CODES_400.includes(code)) {
-        return response.status(400).send({ 'error': meta })
-      }
-      if (PRISMA_CODES_404.includes(code)) {
-        return response.status(404).send({ 'error': meta })
-      }
-      if (PRISMA_CODES_409.includes(code)) {
-        return response.status(409).send({ 'error': meta })
-      }
+  if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
+    return response.status(401).send({ 'error': 'invalid user' })
+  }
 
-      return response.status(400).send({ 'error': err })
+  // delete product
+  const { res: deleteRes, err: deleteErr } = await productsDAO.deleteProductById(product.id)
+  if (typeof deleteRes === 'undefined') {
+    const { code, meta } = deleteErr
+    // Gestion errores
+    console.log(code)
+    if (PRISMA_CODES_400.includes(code)) {
+      return response.status(400).send({ 'error': meta })
     }
-    return response.status(204).end()
-  }
+    if (PRISMA_CODES_404.includes(code)) {
+      return response.status(404).send({ 'error': meta })
+    }
+    if (PRISMA_CODES_409.includes(code)) {
+      return response.status(409).send({ 'error': meta })
+    }
 
-  return response.status(401).send({ 'error': 'invalid user' })
+    return response.status(400).send({ 'error': deleteErr })
+  }
+  return response.status(204).end()
+
 
 })
 
+productsRouter.put('/', userExtractor, async (request, response) => {
+  const product = request.body
+  const { user } = request
+
+  const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
+
+  if (getRes === null) {
+    console.log('error: ', getErr)
+    return response.status(400).send({ 'error': 'product not found' })
+  }
+
+  if (typeof getRes === 'undefined') {
+    // TODO extraer y renombrar *
+    const prismaError = handlePrismaErrors(getErr, response)
+    if (prismaError) {
+      return prismaError
+    }
+    return response.status(400).send({ 'error': getErr })
+  }
+
+  if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
+    return response.status(401).send({ 'error': 'invalid user' })
+  }
+
+  // update product TODO
+
+  return response.json(getRes)
+})
+
 module.exports = productsRouter
+
+// TODO extraer y renombrar
+function handlePrismaErrors(err, response) {
+  const { code, meta } = err
+  // Gestion errores
+  console.log(code)
+  if (PRISMA_CODES_400.includes(code)) {
+    return response.status(400).send({ 'error': meta })
+  }
+  if (PRISMA_CODES_404.includes(code)) {
+    return response.status(404).send({ 'error': meta })
+  }
+  if (PRISMA_CODES_409.includes(code)) {
+    return response.status(409).send({ 'error': meta })
+  }
+}
