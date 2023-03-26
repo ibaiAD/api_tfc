@@ -1,7 +1,7 @@
 # Get an existing user
-GET http://localhost:3001/api/users/Alias
+GET {{baseUrl}}/api/users/Alias
 
 ###
 
 # Get a non existing user
-GET http://localhost:3001/api/users/unknown
+GET {{baseUrl}}/api/users/unknown

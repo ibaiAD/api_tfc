@@ -1,6 +1,6 @@
 # Delete an existing user
-DELETE http://localhost:3001/api/users/Alias
+DELETE {{baseUrl}}/api/users/Alias
 ###
 
 # Delete a non existing user
-DELETE http://localhost:3001/api/users/unknown
+DELETE {{baseUrl}}/api/users/unknown

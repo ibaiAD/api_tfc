@@ -1,7 +1,7 @@
 # Update a user
 
 # Update userName
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -14,7 +14,7 @@ content-type: application/json
 ###
 
 # Update name
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -27,7 +27,7 @@ content-type: application/json
 ###
 
 # Update description
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -40,7 +40,7 @@ content-type: application/json
 ###
 
 # Update password
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -53,7 +53,7 @@ content-type: application/json
 ###
 
 # Update role
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -66,7 +66,7 @@ content-type: application/json
 ###
 
 # Update non existing field
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -79,7 +79,7 @@ content-type: application/json
 ###
 
 # Update non existing user's name
-PUT http://localhost:3001/api/users
+PUT {{baseUrl}}/api/users
 content-type: application/json
 
 {

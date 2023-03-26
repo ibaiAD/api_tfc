@@ -1,7 +1,7 @@
 # Login as a user
 
 # Login as an existing user
-POST http://localhost:3001/api/login
+POST {{baseUrl}}/api/login
 content-type: application/json
 
 {
@@ -12,7 +12,7 @@ content-type: application/json
 ###
 
 # Login as a non existing user
-POST http://localhost:3001/api/login
+POST {{baseUrl}}/api/login
 content-type: application/json
 
 {
@@ -23,7 +23,7 @@ content-type: application/json
 ###
 
 # Login with wrong password
-POST http://localhost:3001/api/login
+POST {{baseUrl}}/api/login
 content-type: application/json
 
 {

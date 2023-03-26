@@ -1,9 +1,9 @@
 # Delete a product
 
 # With all the fields (required & not-required) and token
-DELETE  http://localhost:3001/api/products
+DELETE  {{baseUrl}}/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+Authorization: Bearer {{authorization}}
 
 {
   "id": 41
@@ -12,9 +12,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOY
 ###
 
 # Non Existing product
-DELETE  http://localhost:3001/api/products
+DELETE  {{baseUrl}}/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+Authorization: Bearer {{authorization}}
 
 {
   "id": 20
@@ -23,9 +23,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOY
 ###
 
 # Without ALL required
-DELETE  http://localhost:3001/api/products
+DELETE  {{baseUrl}}/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+Authorization: Bearer {{authorization}}
 
 {
 }
@@ -33,9 +33,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOY
 ###
 
 # With wrong id type
-DELETE  http://localhost:3001/api/products
+DELETE  {{baseUrl}}/api/products
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsInVzZXJOYW1lIjoiQWxpYXMiLCJyb2xlIjoidXN1YXJpbyIsImlhdCI6MTY3OTc0MjIwOSwiZXhwIjoxNjc5NzQ1ODA5fQ.47JxHnBCB3AHEXanJMqNY6tf-N_uInbT16I69eJNDtc
+Authorization: Bearer {{authorization}}
 
 {
   "id": "41"

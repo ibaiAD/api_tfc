@@ -1,7 +1,7 @@
 # Create a new user
 
 # With all the fields (required & not-required)
-POST http://localhost:3001/api/users
+POST {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -15,7 +15,7 @@ content-type: application/json
 ###
 
 # Without not-required
-POST http://localhost:3001/api/users
+POST {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -28,7 +28,7 @@ content-type: application/json
 ###
 
 # Without ALL required
-POST http://localhost:3001/api/users
+POST {{baseUrl}}/api/users
 content-type: application/json
 
 {
@@ -37,7 +37,7 @@ content-type: application/json
 ###
 
 # Without required field role
-POST http://localhost:3001/api/users
+POST {{baseUrl}}/api/users
 content-type: application/json
 
 {
