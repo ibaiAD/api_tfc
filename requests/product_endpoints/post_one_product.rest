@@ -41,3 +41,15 @@ Authorization: Bearer {{authorization}}
 
 {
 }
+
+###
+
+# Wrong data type
+POST {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "name": 1,
+  "description": 123
+}

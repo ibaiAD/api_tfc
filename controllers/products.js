@@ -3,11 +3,11 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const { productsDAO } = require('../ddbb_services')
-const { PRISMA_CODES } = require('../utils/prisma_codes')
-const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
+const { handlePrismaErrors } = require('../utils/prisma_codes')
 const USER_ROLES = require('../utils/user_roles')
 const userExtractor = require('../middlewares/userExtractor')
 
+// Get all products
 productsRouter.get('/', async (request, response) => {
   try {
     allProducts = await productsDAO.getAllProducts()
@@ -22,6 +22,7 @@ productsRouter.get('/', async (request, response) => {
   }
 })
 
+// Create a new product
 productsRouter.post('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
@@ -29,21 +30,15 @@ productsRouter.post('/', userExtractor, async (request, response) => {
   try {
     const { res, err } = await productsDAO.createProduct(product, user.id)
 
-    if (typeof res === 'undefined') {
-      const { code, meta } = err
-      // Gestion errores
-      console.log(code)
-      if (PRISMA_CODES_400.includes(code)) {
-        return response.status(400).send({ 'error': meta })
+    if (typeof err !== 'undefined') {
+
+      const prismaError = handlePrismaErrors(err, response)
+      if (prismaError) {
+        return prismaError
       }
-      if (PRISMA_CODES_404.includes(code)) {
-        return response.status(404).send({ 'error': meta })
-      }
-      if (PRISMA_CODES_409.includes(code)) {
-        return response.status(409).send({ 'error': meta })
-      }
+
       console.log(err)
-      return response.status(600).send({ 'error': err })
+      return response.status(400).send({ 'error': err })
 
     } else {
       return response.status(201).json(res)
@@ -57,6 +52,7 @@ productsRouter.post('/', userExtractor, async (request, response) => {
   }
 })
 
+// Delete a product by Id
 productsRouter.delete('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
@@ -68,18 +64,11 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
     return response.status(400).send({ 'error': 'product not found' })
   }
 
-  if (typeof getRes === 'undefined') {
-    const { code, meta } = getErr
-    // Gestion errores
-    console.log(code)
-    if (PRISMA_CODES_400.includes(code)) {
-      return response.status(400).send({ 'error': meta })
-    }
-    if (PRISMA_CODES_404.includes(code)) {
-      return response.status(404).send({ 'error': meta })
-    }
-    if (PRISMA_CODES_409.includes(code)) {
-      return response.status(409).send({ 'error': meta })
+  if (typeof getErr !== 'undefined') {
+
+    const prismaError = handlePrismaErrors(getErr, response)
+    if (prismaError) {
+      return prismaError
     }
 
     return response.status(400).send({ 'error': getErr })
@@ -91,18 +80,11 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
 
   // delete product
   const { res: deleteRes, err: deleteErr } = await productsDAO.deleteProductById(product.id)
-  if (typeof deleteRes === 'undefined') {
-    const { code, meta } = deleteErr
-    // Gestion errores
-    console.log(code)
-    if (PRISMA_CODES_400.includes(code)) {
-      return response.status(400).send({ 'error': meta })
-    }
-    if (PRISMA_CODES_404.includes(code)) {
-      return response.status(404).send({ 'error': meta })
-    }
-    if (PRISMA_CODES_409.includes(code)) {
-      return response.status(409).send({ 'error': meta })
+  if (typeof deleteErr !== 'undefined') {
+
+    const prismaError = handlePrismaErrors(deleteErr, response)
+    if (prismaError) {
+      return prismaError
     }
 
     return response.status(400).send({ 'error': deleteErr })
@@ -112,6 +94,7 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
 
 })
 
+// Update a product by Id
 productsRouter.put('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
@@ -123,8 +106,7 @@ productsRouter.put('/', userExtractor, async (request, response) => {
     return response.status(400).send({ 'error': 'product not found' })
   }
 
-  if (typeof getRes === 'undefined') {
-    // TODO extraer y renombrar *
+  if (typeof getErr !== 'undefined') {
     const prismaError = handlePrismaErrors(getErr, response)
     if (prismaError) {
       return prismaError
@@ -136,25 +118,20 @@ productsRouter.put('/', userExtractor, async (request, response) => {
     return response.status(401).send({ 'error': 'invalid user' })
   }
 
-  // update product TODO
+  // update product
+  const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(product.id, product.name, product.description)
 
-  return response.json(getRes)
+  if (typeof updateErr !== 'undefined') {
+    console.error(updateErr)
+    const prismaError = handlePrismaErrors(updateErr, response)
+    if (prismaError) {
+      return prismaError
+    }
+
+    return response.status(600).send({ 'error': updateErr })
+  }
+
+  return response.json(updateRes)
 })
 
 module.exports = productsRouter
-
-// TODO extraer y renombrar
-function handlePrismaErrors(err, response) {
-  const { code, meta } = err
-  // Gestion errores
-  console.log(code)
-  if (PRISMA_CODES_400.includes(code)) {
-    return response.status(400).send({ 'error': meta })
-  }
-  if (PRISMA_CODES_404.includes(code)) {
-    return response.status(404).send({ 'error': meta })
-  }
-  if (PRISMA_CODES_409.includes(code)) {
-    return response.status(409).send({ 'error': meta })
-  }
-}

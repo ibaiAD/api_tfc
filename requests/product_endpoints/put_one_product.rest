@@ -6,7 +6,9 @@ content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
-  "id": 47
+  "id": 50,
+  "name": "Edited name",
+  "description": "Edited description"
 }
 
 ###
@@ -29,6 +31,19 @@ Authorization: Bearer {{authorization}}
 
 {
   "id": "2"
+}
+
+###
+
+# With wrong parameters type
+PUT  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": 42,
+  "name": 1,
+  "description": 123
 }
 
 ###

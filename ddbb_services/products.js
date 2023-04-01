@@ -50,6 +50,22 @@ const productsDAO = {
       return { res, err }
     }
 
+    if (typeof name === 'number' && typeof name !== 'string') {
+      err = { "Provided Int, expected String": "name" }
+      return { res, err }
+    }
+
+    if (typeof description === 'number' && typeof description !== 'string') {
+      err = { "Provided Int, expected String": "description" }
+      return { res, err }
+    }
+
+    // Lo extrae del token, no debería darse el caso
+    if (typeof userId !== 'number' && typeof userId === 'string') {
+      err = { "Provided String, expected Int": "userId" }
+      return { res, err }
+    }
+
     try {
       res = await prisma.product.create({
         data: {
@@ -83,9 +99,37 @@ const productsDAO = {
   },
 
   // Actualiza un producto por Id
-  updateProductById: async function updateProductById(pId) {
-    // TODO
-    
+  updateProductById: async function updateProductById(pId, name, description) {
+    let res, err
+
+    if (typeof name === 'number' && typeof name !== 'string') {
+      err = { "Provided Int, expected String": "name" }
+      return { res, err }
+    }
+
+    if (typeof description === 'number' && typeof description !== 'string') {
+      err = { "Provided Int, expected String": "description" }
+      return { res, err }
+    }
+
+    try {
+      res = await prisma.product.update({
+        where: {
+          id: pId,
+        },
+        data: {
+          name: name,
+          description: description
+        },
+      })
+
+    } catch (error) {
+      err = error
+    }
+
+    return { res, err }
+
+
   }
 }
 
