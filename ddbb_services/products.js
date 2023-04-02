@@ -22,6 +22,11 @@ const productsDAO = {
       return { res, err }
     }
 
+    if (id % 1 !== 0) {
+      err = { "Provided Float, expected Int": "id" }
+      return { res, err }
+    }
+
     try {
       res = await prisma.product.findUnique({
         where: {
@@ -33,6 +38,19 @@ const productsDAO = {
     }
 
     return { res, err }
+  },
+
+  // Devuelve productos por nombre
+  getProductsByName: async function getProductsByName(productName) {
+    const result = await prisma.product.findMany({
+      where: {
+        name: {
+          contains: productName,
+        },
+      },
+    })
+
+    return result
   },
 
   // Crea un nuevo producto

@@ -1,0 +1,17 @@
+# Get an existing product
+GET {{baseUrl}}/api/products/42
+
+###
+
+# Get a non existing product
+GET {{baseUrl}}/api/products/0
+
+###
+
+# With wrong id type string
+GET {{baseUrl}}/api/products/something
+
+###
+
+# With wrong id type float
+GET {{baseUrl}}/api/products/12.34

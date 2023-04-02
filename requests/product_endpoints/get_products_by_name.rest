@@ -1,0 +1,14 @@
+# Get all products that their names contain the requested one from the Data Base
+
+# With an existing name
+GET {{baseUrl}}/api/products?name=prueba
+
+###
+
+# Without an existing name
+GET {{baseUrl}}/api/products?name=unknown
+
+###
+
+# Without name and with a parameter that does not exist
+GET {{baseUrl}}/api/products?fasdf
