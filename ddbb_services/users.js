@@ -55,36 +55,32 @@ const usersDAO = {
       console.log(passwordHash)
       console.log(userName, name, description, password, role)
 
-      res = await prisma.user.create({
-        data: {
-          userName: userName,
-          name: name,
-          description: description,
-          passwordHash: passwordHash,
-          role: role
-        }
-      })
     } catch (error) {
       err = error
+      return { res, err }
     }
+
+    res = await prisma.user.create({
+      data: {
+        userName: userName,
+        name: name,
+        description: description,
+        passwordHash: passwordHash,
+        role: role
+      }
+    })
     return { res, err }
   },
 
   // Elimina un usuario por su userName
   deleteUserByName: async function deleteUserByName(uName) {
-    let res
-    let err
-    try {
-      res = await prisma.user.delete({
-        where: {
-          userName: uName
-        }
-      })
+    const deletedUser = await prisma.user.delete({
+      where: {
+        userName: uName
+      }
+    })
 
-    } catch (error) {
-      err = error
-    }
-    return { res, err }
+    return deletedUser
   },
 
   // Actualiza el userName de un usuario
