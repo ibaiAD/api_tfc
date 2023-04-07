@@ -40,12 +40,6 @@ productsRouter.post('/', userExtractor, async (request, response) => {
     const { res, err } = await productsDAO.createProduct(product, user.id)
 
     if (typeof err !== 'undefined') {
-
-      const prismaError = handlePrismaErrors(err, response)
-      if (prismaError) {
-        return prismaError
-      }
-
       console.log(err)
       return response.status(400).send({ 'error': err })
 
@@ -55,7 +49,11 @@ productsRouter.post('/', userExtractor, async (request, response) => {
 
   } catch (error) {
     console.error(error)
-    process.exit(1)
+    const prismaError = handlePrismaErrors(error, response)
+    if (prismaError) {
+      return prismaError
+    }
+    return response.status(500).send({ 'error': 'something went wrong' })
   } finally {
     await prisma.$disconnect()
   }
@@ -66,41 +64,49 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
 
-  const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
+  try {
+    const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
 
-  if (getRes === null) {
-    console.log('error: ', getErr)
-    return response.status(400).send({ 'error': 'product not found' })
-  }
+    if (getRes === null) {
+      console.log('error: ', getErr)
+      return response.status(404).send({ 'error': 'product not found' })
+    }
 
-  if (typeof getErr !== 'undefined') {
+    if (typeof getErr !== 'undefined') {
+      console.log(getErr)
+      return response.status(400).send({ 'error': getErr })
+    }
 
-    const prismaError = handlePrismaErrors(getErr, response)
+    if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
+      return response.status(401).send({ 'error': 'invalid user' })
+    }
+
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
     if (prismaError) {
       return prismaError
     }
-
-    return response.status(400).send({ 'error': getErr })
-  }
-
-  if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
-    return response.status(401).send({ 'error': 'invalid user' })
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
   }
 
   // delete product
-  const { res: deleteRes, err: deleteErr } = await productsDAO.deleteProductById(product.id)
-  if (typeof deleteErr !== 'undefined') {
+  try {
+    const deletedProduct = await productsDAO.deleteProductById(product.id)
+    return response.status(204).end()
 
-    const prismaError = handlePrismaErrors(deleteErr, response)
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
     if (prismaError) {
       return prismaError
     }
-
-    return response.status(400).send({ 'error': deleteErr })
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
   }
-  return response.status(204).end()
-
-
 })
 
 // Update a product by Id
@@ -108,62 +114,90 @@ productsRouter.put('/', userExtractor, async (request, response) => {
   const product = request.body
   const { user } = request
 
-  const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
+  try {
+    const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
 
-  if (getRes === null) {
-    console.log('error: ', getErr)
-    return response.status(400).send({ 'error': 'product not found' })
-  }
+    if (getRes === null) {
+      console.log('error: ', getErr)
+      return response.status(404).send({ 'error': 'product not found' })
+    }
 
-  if (typeof getErr !== 'undefined') {
-    const prismaError = handlePrismaErrors(getErr, response)
+    if (typeof getErr !== 'undefined') {
+      console.log(getErr)
+      return response.status(400).send({ 'error': getErr })
+    }
+
+    if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
+      return response.status(401).send({ 'error': 'invalid user' })
+    }
+
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
     if (prismaError) {
       return prismaError
     }
-    return response.status(400).send({ 'error': getErr })
-  }
-
-  if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
-    return response.status(401).send({ 'error': 'invalid user' })
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
   }
 
   // update product
-  const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(product.id, product.name, product.description)
+  try {
+    const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(product.id, product.name, product.description)
 
-  if (typeof updateErr !== 'undefined') {
-    console.error(updateErr)
-    const prismaError = handlePrismaErrors(updateErr, response)
+    if (typeof updateErr !== 'undefined') {
+      console.error(updateErr)
+      return response.status(400).send({ 'error': updateErr })
+
+    } else {
+      return response.json(updateRes)
+    }
+
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
     if (prismaError) {
       return prismaError
     }
-
-    return response.status(600).send({ 'error': updateErr })
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
   }
-
-  return response.json(updateRes)
 })
 
+// Get a product by Id
 productsRouter.get('/:id', async (request, response) => {
   const id = Number(request.params.id)
   if (isNaN(id)) {
     return response.status(400).send({ "Provided String, expected Int": "id" })
   }
 
-  const { res: productFound, err } = await productsDAO.getProductById(id)
+  try {
+    const { res: getRes, err: getErr } = await productsDAO.getProductById(id)
 
-  if (productFound === null) {
-    return response.status(400).send({ 'error': 'product not found' })
-  }
+    if (getRes === null) {
+      console.log('error: ', getErr)
+      return response.status(404).send({ 'error': 'product not found' })
+    }
 
-  if (typeof err !== 'undefined') {
-    const prismaError = handlePrismaErrors(err, response)
+    if (typeof getErr !== 'undefined') {
+      console.log(getErr)
+      return response.status(400).send({ 'error': getErr })
+    }
+
+    return response.json(getRes)
+
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
     if (prismaError) {
       return prismaError
     }
-    return response.status(400).send(err)
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
   }
-
-  return response.json(productFound)
 })
 
 module.exports = productsRouter

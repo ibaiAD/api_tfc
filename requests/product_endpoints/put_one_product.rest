@@ -13,6 +13,18 @@ Authorization: Bearer {{authorization}}
 
 ###
 
+# With only one field
+PUT  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": 50,
+  "name": "Edited name"
+}
+
+###
+
 # Non Existing product
 PUT  {{baseUrl}}/api/products
 content-type: application/json
@@ -20,6 +32,16 @@ Authorization: Bearer {{authorization}}
 
 {
   "id": 0
+}
+
+###
+
+# Without ALL required
+PUT  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
 }
 
 ###

@@ -2,13 +2,13 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const productsDAO = {
-  // Devuelve todos los productos
+  // Returns all products
   getAllProducts: async function getAllProducts() {
     const allProducts = await prisma.product.findMany()
     return allProducts
   },
 
-  // Devuelve un producto por su id
+  // Returns a product by its Id
   getProductById: async function getProductById(id) {
     let res, err
 
@@ -27,20 +27,16 @@ const productsDAO = {
       return { res, err }
     }
 
-    try {
-      res = await prisma.product.findUnique({
-        where: {
-          id: id
-        }
-      })
-    } catch (error) {
-      err = error
-    }
+    res = await prisma.product.findUnique({
+      where: {
+        id: id
+      }
+    })
 
     return { res, err }
   },
 
-  // Devuelve productos por nombre
+  // Returns products by name
   getProductsByName: async function getProductsByName(productName) {
     const result = await prisma.product.findMany({
       where: {
@@ -53,7 +49,7 @@ const productsDAO = {
     return result
   },
 
-  // Crea un nuevo producto
+  // Creates a new product
   createProduct: async function createProduct(p, userId) {
     let res, err
     const { name, description } = p
@@ -78,45 +74,34 @@ const productsDAO = {
       return { res, err }
     }
 
-    // Lo extrae del token, no debería darse el caso
+    // Extracted from the token, this should never happen
     if (typeof userId !== 'number' && typeof userId === 'string') {
       err = { "Provided String, expected Int": "userId" }
       return { res, err }
     }
 
-    try {
-      res = await prisma.product.create({
-        data: {
-          name: name,
-          description: description,
-          userId: userId
-        }
-      })
-    } catch (error) {
-      err = error
-    }
-
+    res = await prisma.product.create({
+      data: {
+        name: name,
+        description: description,
+        userId: userId
+      }
+    })
     return { res, err }
-
   },
 
-  // Elimina un producto por Id
+  // Deletes a product by its Id
   deleteProductById: async function deleteProductById(pId) {
-    let res, err
+    const deletedProduct = await prisma.product.delete({
+      where: {
+        id: pId,
+      },
+    })
 
-    try {
-      res = await prisma.product.delete({
-        where: {
-          id: pId,
-        },
-      })
-    } catch (error) {
-      err = error
-    }
-    return { res, err }
+    return deletedProduct
   },
 
-  // Actualiza un producto por Id
+  /// Updates a product by its Id
   updateProductById: async function updateProductById(pId, name, description) {
     let res, err
 
@@ -130,7 +115,6 @@ const productsDAO = {
       return { res, err }
     }
 
-    try {
       res = await prisma.product.update({
         where: {
           id: pId,
@@ -141,13 +125,7 @@ const productsDAO = {
         },
       })
 
-    } catch (error) {
-      err = error
-    }
-
     return { res, err }
-
-
   }
 }
 

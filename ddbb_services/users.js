@@ -3,13 +3,13 @@ const prisma = new PrismaClient()
 const bcrypt = require('bcrypt')
 
 const usersDAO = {
-  // Devuelve todos los usuarios
+  // Returns all users
   getAllUsers: async function getAllUsers() {
     const allUsers = await prisma.user.findMany()
     return allUsers
   },
 
-  // Devuelve un usuario por su userName
+  // Returns a user by userName
   getUserByUserName: async function getUserByUserName(uName) {
     const u = await prisma.user.findUnique({
       where: {
@@ -19,7 +19,7 @@ const usersDAO = {
     return u
   },
 
-  // Crea un nuevo usuario
+  // Creates a new user
   createUser: async function createUser(u) {
     let res
     let err
@@ -72,7 +72,7 @@ const usersDAO = {
     return { res, err }
   },
 
-  // Elimina un usuario por su userName
+  // Deletes a user by userName
   deleteUserByName: async function deleteUserByName(uName) {
     const deletedUser = await prisma.user.delete({
       where: {
