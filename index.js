@@ -14,7 +14,7 @@ app.use(express.json())
 
 // Statics ---------------------------->
 app.use('/', express.static('public'))
-app.use('/documentation', express.static('public/documentation.html'))
+// app.use('/documentation', express.static('public/documentation.html'))
 // <------------------------------------
 
 app.use(requestLogger)

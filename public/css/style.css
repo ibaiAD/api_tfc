@@ -31,6 +31,19 @@ nav {
   padding: 1em;
 }
 
+section {
+  padding: 1em;
+  margin-bottom: 2em;
+}
+
+article {
+  padding: .5em;
+}
+
+article:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
 aside#left {
   flex: 1 1;
 }
