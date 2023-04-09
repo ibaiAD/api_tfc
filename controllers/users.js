@@ -6,6 +6,8 @@ const { usersDAO } = require('../ddbb_services')
 const { PRISMA_CODES } = require('../utils/prisma_codes') // borrar al refactorizar
 const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES // borrar al refactorizar
 const { handlePrismaErrors } = require('../utils/prisma_codes')
+const USER_ROLES = require('../utils/user_roles')
+const userExtractor = require('../middlewares/userExtractor')
 
 usersRouter.get('/', async (request, response) => {
   try {
@@ -30,14 +32,14 @@ usersRouter.get('/', async (request, response) => {
 usersRouter.get('/:uName', async (request, response) => {
   const uName = request.params.uName
   try {
-    const userFound = await usersDAO.getUserByUserName(uName)
+    const { res: userFound, err } = await usersDAO.getUserByUserName(uName)
 
     // deletes password from the user before returning it
     userFound && delete userFound.passwordHash
 
-    userFound
+    return userFound
       ? response.json(userFound)
-      : response.status(404).send({ error: 'unknown user' })
+      : response.status(404).send({ 'error': 'user not found' })
 
   } catch (error) {
     console.error(error)
@@ -76,12 +78,39 @@ usersRouter.post('/', async (request, response) => {
   }
 })
 
-// TODO --> Añadir TOKEN
-usersRouter.delete('/:uName', async (request, response) => {
-  const uName = request.params.uName
+usersRouter.delete('/', userExtractor, async (request, response) => {
+  const { userName } = request.body
+  const { user } = request
 
   try {
-    const deletedUser = await usersDAO.deleteUserByName(uName)
+    const { res: userToDelete, err: getErr } = await usersDAO.getUserByUserName(userName)
+
+    if (userToDelete === null) {
+      console.log('error: ', getErr)
+      return response.status(404).send({ 'error': 'user not found' })
+    }
+
+    if (typeof getErr !== 'undefined') {
+      console.log(getErr)
+      return response.status(400).send({ 'error': getErr })
+    }
+
+    if (!(user.role === USER_ROLES.admin || user.id === userToDelete.id)) {
+      return response.status(401).send({ 'error': 'invalid user' })
+    }
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
+    if (prismaError) {
+      return prismaError
+    }
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
+  }
+
+  try {
+    const deletedUser = await usersDAO.deleteUserByName(userName)
     return response.status(204).end()
 
   } catch (error) {

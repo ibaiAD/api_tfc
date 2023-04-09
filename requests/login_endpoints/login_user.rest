@@ -30,3 +30,54 @@ content-type: application/json
   "userName": "Alias",
   "password": "password"
 }
+
+###
+
+# Login without params
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+}
+
+###
+
+# Login without password
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+  "userName": "Alias"
+}
+
+###
+
+# Login without userName
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+  "password": "123"
+}
+
+###
+
+# Login with wrong data type userName
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+  "userName": 1,
+  "password": "123"
+}
+
+###
+
+# Login with wrong data type password
+POST {{baseUrl}}/api/login
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "password": 2
+}

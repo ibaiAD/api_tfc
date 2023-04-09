@@ -11,12 +11,29 @@ const usersDAO = {
 
   // Returns a user by userName
   getUserByUserName: async function getUserByUserName(uName) {
-    const u = await prisma.user.findUnique({
+    let res, err
+
+    if (!uName && uName !== 0) {
+      err = { "required_field_missing": "userName" }
+      return { res, err }
+    }
+
+    if (typeof uName !== 'string' && typeof uName === 'number') {
+      err = { "Provided Int, expected String": "userName" }
+      return { res, err }
+    }
+
+    if (typeof uName !== 'string' && typeof uName === 'boolean') {
+      err = { "Provided Boolean, expected String": "userName" }
+      return { res, err }
+    }
+
+    res = await prisma.user.findUnique({
       where: {
         userName: uName
       }
     })
-    return u
+    return { res, err }
   },
 
   // Creates a new user

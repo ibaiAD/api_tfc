@@ -4,3 +4,53 @@ DELETE {{baseUrl}}/api/users/Alias
 
 # Delete a non existing user
 DELETE {{baseUrl}}/api/users/unknown
+
+###
+# New Version
+
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "userName": "Pruebas"
+}
+
+###
+
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "userName": "Borrar2"
+}
+
+###
+
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "userName": 0
+}
+
+###
+
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "userName": ""
+}
+
+###
+
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+}

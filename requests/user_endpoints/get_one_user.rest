@@ -5,3 +5,8 @@ GET {{baseUrl}}/api/users/Alias
 
 # Get a non existing user
 GET {{baseUrl}}/api/users/unknown
+
+###
+
+# Get a non existing user with a number param and being 0
+GET {{baseUrl}}/api/users/0
