@@ -18,12 +18,12 @@ const usersDAO = {
       return { res, err }
     }
 
-    if (typeof uName !== 'string' && typeof uName === 'number') {
+    if (typeof uName === 'number') {
       err = { "Provided Int, expected String": "userName" }
       return { res, err }
     }
 
-    if (typeof uName !== 'string' && typeof uName === 'boolean') {
+    if (typeof uName === 'boolean') {
       err = { "Provided Boolean, expected String": "userName" }
       return { res, err }
     }
@@ -33,6 +33,34 @@ const usersDAO = {
         userName: uName
       }
     })
+    return { res, err }
+  },
+
+  // Returns a user by id
+  getUserById: async function getUserById(id) {
+    let res, err
+
+    if (!id && id !== 0) {
+      err = { "required_field_missing": "id" }
+      return { res, err }
+    }
+
+    if (typeof id === 'string') {
+      err = { "Provided String, expected Int": "id" }
+      return { res, err }
+    }
+
+    if (id % 1 !== 0) {
+      err = { "Provided Float, expected Int": "id" }
+      return { res, err }
+    }
+
+    res = await prisma.user.findUnique({
+      where: {
+        id: id
+      }
+    })
+
     return { res, err }
   },
 
@@ -100,109 +128,190 @@ const usersDAO = {
     return deletedUser
   },
 
-  // Actualiza el userName de un usuario
-  updateUserUserName: async function updateUserUserName(uName, newData) {
-    console.log('updateUserUserName')
-    let res, err
-    try {
-      res = await prisma.user.update({
-        where: {
-          userName: uName
-        },
-        data: {
-          userName: newData,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      err = error
-    }
-    return { res, err }
-  },
+  // // Actualiza el userName de un usuario
+  // updateUserUserName: async function updateUserUserName(uName, newData) {
+  //   console.log('updateUserUserName')
+  //   let res, err
+  //   try {
+  //     res = await prisma.user.update({
+  //       where: {
+  //         userName: uName
+  //       },
+  //       data: {
+  //         userName: newData,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     err = error
+  //   }
+  //   return { res, err }
+  // },
 
-  // Actualiza el name de un usuario
-  updateUserName: async function updateUserName(uName, newData) {
-    console.log('updateUserName')
-    let res, err
-    try {
-      res = await prisma.user.update({
-        where: {
-          userName: uName
-        },
-        data: {
-          name: newData,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      err = error
-    }
-    return { res, err }
-  },
+  // // Actualiza el name de un usuario
+  // updateUserName: async function updateUserName(uName, newData) {
+  //   console.log('updateUserName')
+  //   let res, err
+  //   try {
+  //     res = await prisma.user.update({
+  //       where: {
+  //         userName: uName
+  //       },
+  //       data: {
+  //         name: newData,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     err = error
+  //   }
+  //   return { res, err }
+  // },
 
-  // Actualiza la description de un usuario
-  updateUserDescription: async function updateUserDescription(uName, newData) {
-    console.log('updateUserDescription')
-    let res, err
-    try {
-      res = await prisma.user.update({
-        where: {
-          userName: uName
-        },
-        data: {
-          description: newData,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      err = error
-    }
-    return { res, err }
-  },
+  // // Actualiza la description de un usuario
+  // updateUserDescription: async function updateUserDescription(uName, newData) {
+  //   console.log('updateUserDescription')
+  //   let res, err
+  //   try {
+  //     res = await prisma.user.update({
+  //       where: {
+  //         userName: uName
+  //       },
+  //       data: {
+  //         description: newData,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     err = error
+  //   }
+  //   return { res, err }
+  // },
 
-  // Actualiza la contraseña de un usuario
-  updateUserPassword: async function updateUserPassword(uName, newData) {
-    console.log('updateUserPassword')
+  // // Actualiza la contraseña de un usuario
+  // updateUserPassword: async function updateUserPassword(uName, newData) {
+  //   console.log('updateUserPassword')
+  //   let res, err, passwordHash
+  //   try {
+  //     // Encrypts Password --------------------------------->
+  //     const saltRounds = 10
+  //     passwordHash = await bcrypt.hash(newData, saltRounds)
+  //     // <---------------------------------------------------
+
+  //     res = await prisma.user.update({
+  //       where: {
+  //         userName: uName
+  //       },
+  //       data: {
+  //         passwordHash: passwordHash,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     err = error
+  //   }
+  //   return { res, err }
+  // },
+
+  // // Actualiza el rol de un usuario
+  // updateUserRole: async function updateUserRole(uName, newData) {
+  //   console.log('updateUserRole')
+  //   let res, err
+  //   try {
+  //     res = await prisma.user.update({
+  //       where: {
+  //         userName: uName
+  //       },
+  //       data: {
+  //         role: newData,
+  //       },
+  //     })
+  //   } catch (error) {
+  //     console.log(error)
+  //     err = error
+  //   }
+  //   return { res, err }
+  // },
+
+  updateUser: async function updateUser(userData) {
     let res, err, passwordHash
-    try {
+    const { id, userName, name, description, password, role } = userData
+    console.log({ id }, { userName }, { name }, { description }, { password }, { role })
+
+    // TODO --> gestión de errores de tipos de datos boolean
+    if (typeof userName === 'number') {
+      err = { "Provided Int, expected String": "userName" }
+      return { res, err }
+    }
+
+    if (typeof name === 'number') {
+      err = { "Provided Int, expected String": "name" }
+      return { res, err }
+    }
+
+    if (typeof description === 'number') {
+      err = { "Provided Int, expected String": "description" }
+      return { res, err }
+    }
+
+    if (typeof password === 'number') {
+      err = { "Provided Int, expected String": "password" }
+      return { res, err }
+    }
+
+    if (typeof role === 'number') {
+      err = { "Provided Int, expected String": "role" }
+      return { res, err }
+    }
+    
+    // booleans
+    if (typeof userName === 'boolean') {
+      err = { "Provided Boolean, expected String": "userName" }
+      return { res, err }
+    }
+
+    if (typeof name === 'boolean') {
+      err = { "Provided Boolean, expected String": "name" }
+      return { res, err }
+    }
+
+    if (typeof description === 'boolean') {
+      err = { "Provided Boolean, expected String": "description" }
+      return { res, err }
+    }
+
+    if (typeof password === 'boolean') {
+      err = { "Provided Boolean, expected String": "password" }
+      return { res, err }
+    }
+
+    if (typeof role === 'boolean') {
+      err = { "Provided Boolean, expected String": "role" }
+      return { res, err }
+    }
+
+    if (password) {
       // Encrypts Password --------------------------------->
       const saltRounds = 10
-      passwordHash = await bcrypt.hash(newData, saltRounds)
+      passwordHash = await bcrypt.hash(password, saltRounds)
       // <---------------------------------------------------
-
-      res = await prisma.user.update({
-        where: {
-          userName: uName
-        },
-        data: {
-          passwordHash: passwordHash,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      err = error
     }
-    return { res, err }
-  },
 
-  // Actualiza el rol de un usuario
-  updateUserRole: async function updateUserRole(uName, newData) {
-    console.log('updateUserRole')
-    let res, err
-    try {
-      res = await prisma.user.update({
-        where: {
-          userName: uName
-        },
-        data: {
-          role: newData,
-        },
-      })
-    } catch (error) {
-      console.log(error)
-      err = error
-    }
+    res = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        userName: userName,
+        name: name,
+        description: description,
+        passwordHash: passwordHash,
+        role: role
+      },
+    })
+
     return { res, err }
+
   }
 
 }

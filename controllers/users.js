@@ -3,8 +3,6 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const { usersDAO } = require('../ddbb_services')
-const { PRISMA_CODES } = require('../utils/prisma_codes') // borrar al refactorizar
-const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES // borrar al refactorizar
 const { handlePrismaErrors } = require('../utils/prisma_codes')
 const USER_ROLES = require('../utils/user_roles')
 const userExtractor = require('../middlewares/userExtractor')
@@ -125,62 +123,126 @@ usersRouter.delete('/', userExtractor, async (request, response) => {
   }
 })
 
-// TODO --> Cambiar gestión de errores, refactorizar métodos asociados DAO, Añadir TOKEN, etc
-usersRouter.put('/', async (request, response) => {
+// usersRouter.put('/abc', async (request, response) => {
 
-  const FIELDS = new Map([
-    ['userName', () => usersDAO.updateUserUserName(userName, newData)],
-    ['name', () => usersDAO.updateUserName(userName, newData)],
-    ['description', () => usersDAO.updateUserDescription(userName, newData)],
-    ['password', () => usersDAO.updateUserPassword(userName, newData)],
-    ['role', () => usersDAO.updateUserRole(userName, newData)]
-  ])
+//   const FIELDS = new Map([
+//     ['userName', () => usersDAO.updateUserUserName(userName, newData)],
+//     ['name', () => usersDAO.updateUserName(userName, newData)],
+//     ['description', () => usersDAO.updateUserDescription(userName, newData)],
+//     ['password', () => usersDAO.updateUserPassword(userName, newData)],
+//     ['role', () => usersDAO.updateUserRole(userName, newData)]
+//   ])
 
-  const user = request.body
-  const { userName, field, newData } = user
+//   const user = request.body
+//   const { userName, field, newData } = user
 
-  if (!FIELDS.has(field)) {
-    return response.status(400).send({ error: 'invalid field' })
-  }
+//   if (!FIELDS.has(field)) {
+//     return response.status(400).send({ error: 'invalid field' })
+//   }
 
-  if (field === 'role') {
-    // TODO check authorization
-    if (user.token !== 'seguridad') {
-      return response.status(401).send({ error: 'not allowed' })
-    }
-  }
+//   if (field === 'role') {
+//     // TODO check authorization
+//     if (user.token !== 'seguridad') {
+//       return response.status(401).send({ error: 'not allowed' })
+//     }
+//   }
+
+//   try {
+//     const { res, err } = await FIELDS.get(field)()
+//     console.log(res)
+
+//     if (typeof res === 'undefined') {
+//       const { code, meta } = err
+//       // Gestion errores
+//       console.log(code)
+//       if (PRISMA_CODES_400.includes(code)) {
+//         return response.status(400).send({ 'error': meta })
+//       }
+//       if (PRISMA_CODES_404.includes(code)) {
+//         return response.status(404).send({ 'error': meta })
+//       }
+//       if (PRISMA_CODES_409.includes(code)) {
+//         return response.status(409).send({ 'error': meta })
+//       }
+//       console.log(err)
+//       return response.status(600).send({ 'error': err })
+
+//     } else {
+//       return response.json(res)
+//     }
+
+//   } catch (error) {
+//     console.error(error)
+//     process.exit(1)
+//   } finally {
+//     await prisma.$disconnect()
+//   }
+
+// })
+
+usersRouter.put('/', userExtractor, async (request, response) => {
+  const { user } = request
+  const userData = request.body
+  console.log({ user })
+  console.log({ userData })
 
   try {
-    const { res, err } = await FIELDS.get(field)()
-    console.log(res)
 
-    if (typeof res === 'undefined') {
-      const { code, meta } = err
-      // Gestion errores
-      console.log(code)
-      if (PRISMA_CODES_400.includes(code)) {
-        return response.status(400).send({ 'error': meta })
-      }
-      if (PRISMA_CODES_404.includes(code)) {
-        return response.status(404).send({ 'error': meta })
-      }
-      if (PRISMA_CODES_409.includes(code)) {
-        return response.status(409).send({ 'error': meta })
-      }
-      console.log(err)
-      return response.status(600).send({ 'error': err })
+    if (user.role !== USER_ROLES.admin && userData.role) {
+      return response.status(403).send({ 'error': 'forbiden role update' })
+    }
 
-    } else {
-      return response.json(res)
+    const { res: getRes, err: getErr } = await usersDAO.getUserById(userData.id)
+
+    if (getRes === null) {
+      console.log('error: ', getErr)
+      return response.status(404).send({ 'error': 'user not found' })
+    }
+
+    if (typeof getErr !== 'undefined') {
+      console.log(getErr)
+      return response.status(400).send({ 'error': getErr })
+    }
+
+    if (!(user.role === USER_ROLES.admin || user.id === getRes.id)) {
+      return response.status(401).send({ 'error': 'invalid user' })
     }
 
   } catch (error) {
     console.error(error)
-    process.exit(1)
+    const prismaError = handlePrismaErrors(error, response)
+    if (prismaError) {
+      return prismaError
+    }
+    return response.status(500).send({ 'error': 'something went wrong' })
   } finally {
     await prisma.$disconnect()
   }
 
+
+  try {
+    const { res: updateRes, err: updateErr } = await usersDAO.updateUser(userData)
+
+    if (typeof updateErr !== 'undefined') {
+      console.error(updateErr)
+      return response.status(400).send({ 'error': updateErr })
+
+    } else {
+      // deletes password from the user before returning it
+      delete updateRes.passwordHash
+      return response.json(updateRes)
+    }
+
+  } catch (error) {
+    console.error(error)
+    const prismaError = handlePrismaErrors(error, response)
+    if (prismaError) {
+      return prismaError
+    }
+    return response.status(500).send({ 'error': 'something went wrong' })
+  } finally {
+    await prisma.$disconnect()
+  }
 })
 
 module.exports = usersRouter

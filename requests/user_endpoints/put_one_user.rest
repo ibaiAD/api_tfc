@@ -88,3 +88,16 @@ content-type: application/json
   "field": "name",
   "newData": "prueba"
 }
+
+### nueva versión
+
+PUT {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": 12,
+  "userName": "Pruebas",
+  "name": "Nuevo nombre",
+  "description": "Nueva descripción"
+}

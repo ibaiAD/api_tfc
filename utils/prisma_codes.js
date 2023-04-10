@@ -4,8 +4,6 @@ const PRISMA_CODES = {
   PRISMA_CODES_409: ['P2002', 'P2003']
 }
 
-//P2003 --> Foreign key constraint failed on the field: `userId` (400, 409, 422)?
-
 function handlePrismaErrors(err, response) {
   const { code, meta } = err
   // Gestion errores
@@ -22,7 +20,6 @@ function handlePrismaErrors(err, response) {
 }
 
 module.exports = {
-  PRISMA_CODES,
   handlePrismaErrors
 }
 

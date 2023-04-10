@@ -17,7 +17,7 @@ const productsDAO = {
       return { res, err }
     }
 
-    if (typeof id !== 'number' && typeof id === 'string') {
+    if (typeof id === 'string') {
       err = { "Provided String, expected Int": "id" }
       return { res, err }
     }
@@ -64,18 +64,18 @@ const productsDAO = {
       return { res, err }
     }
 
-    if (typeof name === 'number' && typeof name !== 'string') {
+    if (typeof name === 'number') {
       err = { "Provided Int, expected String": "name" }
       return { res, err }
     }
 
-    if (typeof description === 'number' && typeof description !== 'string') {
+    if (typeof description === 'number') {
       err = { "Provided Int, expected String": "description" }
       return { res, err }
     }
 
     // Extracted from the token, this should never happen
-    if (typeof userId !== 'number' && typeof userId === 'string') {
+    if (typeof userId === 'string') {
       err = { "Provided String, expected Int": "userId" }
       return { res, err }
     }
@@ -105,12 +105,12 @@ const productsDAO = {
   updateProductById: async function updateProductById(pId, name, description) {
     let res, err
 
-    if (typeof name === 'number' && typeof name !== 'string') {
+    if (typeof name === 'number') {
       err = { "Provided Int, expected String": "name" }
       return { res, err }
     }
 
-    if (typeof description === 'number' && typeof description !== 'string') {
+    if (typeof description === 'number') {
       err = { "Provided Int, expected String": "description" }
       return { res, err }
     }

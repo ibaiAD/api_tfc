@@ -12,7 +12,6 @@ productsRouter.get('/', async (request, response) => {
 
   const { name } = request.query
   let productsFound
-  console.log(name, typeof name)
 
   try {
     if (typeof name !== 'undefined') {

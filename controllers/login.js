@@ -5,8 +5,6 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 const { usersDAO } = require('../ddbb_services')
-const { PRISMA_CODES } = require('../utils/prisma_codes')
-const { PRISMA_CODES_400, PRISMA_CODES_404, PRISMA_CODES_409 } = PRISMA_CODES
 
 loginRouter.post('/', async (request, response) => {
   const { body } = request
@@ -17,20 +15,18 @@ loginRouter.post('/', async (request, response) => {
     return response.status(400).send({ 'error': passwordRequiredError })
   }
 
-  if (typeof password !== 'string' && typeof password === 'number') {
+  if (typeof password === 'number') {
     const passwordTypeError = { "Provided Int, expected String": "password" }
     return response.status(400).send({ 'error': passwordTypeError })
   }
 
-  if (typeof password !== 'string' && typeof password === 'boolean') {
+  if (typeof password === 'boolean') {
     const passwordTypeError = { "Provided Boolean, expected String": "password" }
     return response.status(400).send({ 'error': passwordTypeError })
   }
 
   try {
     const { res: user, err } = await usersDAO.getUserByUserName(userName)
-    console.log({ user })
-    console.log({ err })
 
     if (typeof err !== 'undefined') {
       console.log(err)
