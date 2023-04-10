@@ -8,8 +8,7 @@ content-type: application/json
   "userName": "Alias",
   "name": "Prueba Post",
   "description": "Descripcion del usuario ...",
-  "password": "p4ssw0rd",
-  "role": "usuario"
+  "password": "p4ssw0rd"
 }
 
 ###
@@ -21,8 +20,7 @@ content-type: application/json
 {
   "userName": "Alias",
   "name": "Prueba Post",
-  "password": "p4ssw0rd",
-  "role": "usuario"
+  "password": "p4ssw0rd"
 }
 
 ###
@@ -36,7 +34,19 @@ content-type: application/json
 
 ###
 
-# Without required field role
+# Without required field name
+POST {{baseUrl}}/api/users
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "description": "Descripcion del usuario ...",
+  "password": "p4ssw0rd"
+}
+
+###
+
+# With role admin
 POST {{baseUrl}}/api/users
 content-type: application/json
 
@@ -44,5 +54,6 @@ content-type: application/json
   "userName": "Alias",
   "name": "Prueba Post",
   "description": "Descripcion del usuario ...",
-  "password": "p4ssw0rd"
+  "password": "p4ssw0rd",
+  "role": "admin"
 }

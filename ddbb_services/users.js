@@ -41,7 +41,7 @@ const usersDAO = {
     let res
     let err
 
-    const { userName, name, description, password, role } = u
+    const { userName, name, description, password } = u
     let passwordHash
 
     if (!userName) {
@@ -59,10 +59,10 @@ const usersDAO = {
       return { res, err }
     }
 
-    if (!role) {
-      err = { "required_field_missing": "role" }
-      return { res, err }
-    }
+    // if (!role) {
+    //   err = { "required_field_missing": "role" }
+    //   return { res, err }
+    // }
 
     try {
       // Encrypts Password --------------------------------->
@@ -70,7 +70,7 @@ const usersDAO = {
       passwordHash = await bcrypt.hash(password, saltRounds)
       // <---------------------------------------------------
       console.log(passwordHash)
-      console.log(userName, name, description, password, role)
+      console.log(userName, name, description, password)
 
     } catch (error) {
       err = error
@@ -83,7 +83,7 @@ const usersDAO = {
         name: name,
         description: description,
         passwordHash: passwordHash,
-        role: role
+        role: 'user'
       }
     })
     return { res, err }
