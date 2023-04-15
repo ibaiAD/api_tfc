@@ -14,10 +14,30 @@ app.use(express.json())
 
 // Statics ---------------------------->
 app.use('/', express.static('public'))
-// app.use('/documentation', express.static('public/documentation.html'))
+app.use('/playground', express.static('public/playground.html'))
 // <------------------------------------
 
 app.use(requestLogger)
+
+// Prueba upload images ------------------>
+const path = require("path") // move to top part
+const multer = require('multer') //  move to top part
+const fs = require("fs") // move to top part
+const upload = multer({ dest: 'uploads/' })
+
+app.post('/upload', upload.single('image'), (request, response) => {
+  console.log('request.file', request.file) // delete
+  console.log('request.file', request.body) // delete
+  console.log('request.file.path', request.file.path) // delete
+  console.log('__dirname', __dirname) // delete
+  console.log('request.file.originalname', request.file.originalname) // delete
+  console.log('path.extname(request.file.originalname)', path.extname(request.file.originalname)) // delete
+  const wantedName = 'imagen_prueba' + path.extname(request.file.originalname).toLowerCase()
+  fs.rename(request.file.path, 'uploads/' + wantedName, () => console.log('funciona'))
+
+  return response.json({ 'file': request.file, 'body': request.body })
+})
+// <---------------------------------------
 
 // Endpoints api/users ------------------->
 app.use('/api/users', usersRouter)

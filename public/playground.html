@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API - TFC</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Playground</h1>
+  </header>
+  <nav>
+    <a href="/">Documentación</a> | <a href="/playground">Playground</a>
+  </nav>
+  <div id="container">
+    <aside id="left">
+      <ol>
+        <li><a id="login" href="#">Login</a></li>
+        <li><a id="users" href="#">Usuarios</a></li>
+        <li><a id="products" href="#">Productos</a></li>
+      </ol>
+    </aside>
+    <main id="playground">
+      <div id="post-product-container">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label for="token">Token:</label>
+          <input type="text" id="token"><br>
+          <label for="product-name">Nombre del producto:</label>
+          <input type="text" id="product-name" name="name"><br>
+          <label for="product-description">Descripción del producto:</label>
+          <input type="text" id="product-description" name="description"><br>
+          <label for="product-image">Imágen del producto</label>
+          <input type="file" name="image" id="product-image"><br>
+          <button type="submit">Enviar</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="./js/script.js"></script>
+</body>
+
+</html>
