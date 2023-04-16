@@ -115,15 +115,19 @@ const productsDAO = {
       return { res, err }
     }
 
-      res = await prisma.product.update({
-        where: {
-          id: pId,
-        },
-        data: {
-          name: name,
-          description: description
-        },
-      })
+    // avoid updating data when come from an empty form field as ''
+    name ||= undefined
+    description ||= undefined
+
+    res = await prisma.product.update({
+      where: {
+        id: pId,
+      },
+      data: {
+        name: name,
+        description: description
+      },
+    })
 
     return { res, err }
   }

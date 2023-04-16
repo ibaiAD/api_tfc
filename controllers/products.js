@@ -1,6 +1,11 @@
+const express = require('express')
 const productsRouter = require('express').Router()
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
+const path = require("path")
+const fs = require("fs")
+const multer = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const { productsDAO } = require('../ddbb_services')
 const { handlePrismaErrors } = require('../utils/prisma_codes')
@@ -20,6 +25,14 @@ productsRouter.get('/', async (request, response) => {
       productsFound = await productsDAO.getAllProducts()
     }
 
+    // add the images if exist
+    productsFound.forEach(product => {
+      if (fs.existsSync('uploads/' + product.id + '.jpg')) {
+        productsRouter.use('/' + product.id + '/image', express.static('uploads/' + product.id + '.jpg'))
+        product.img = 'http://localhost:3001/api/products/' + product.id + '/image'
+      }
+    })
+
     response.json(productsFound)
 
   } catch (error) {
@@ -31,7 +44,7 @@ productsRouter.get('/', async (request, response) => {
 })
 
 // Create a new product
-productsRouter.post('/', userExtractor, async (request, response) => {
+productsRouter.post('/', userExtractor, upload.single('image'), async (request, response) => {
   const product = request.body
   const { user } = request
 
@@ -43,6 +56,15 @@ productsRouter.post('/', userExtractor, async (request, response) => {
       return response.status(400).send({ 'error': err })
 
     } else {
+
+      //save image
+      if (request.file) {
+        const wantedName = res.id + path.extname(request.file.originalname).toLowerCase()
+        fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
+          console.error(renameError) // TODO handle renameError
+        })
+      }
+
       return response.status(201).json(res)
     }
 
@@ -94,6 +116,12 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   // delete product
   try {
     const deletedProduct = await productsDAO.deleteProductById(product.id)
+
+    // delete product image
+    fs.unlink('uploads/' + deletedProduct.id + '.jpg', error => {
+      console.error(error) // TODO handle error ?
+    })
+
     return response.status(204).end()
 
   } catch (error) {
@@ -108,13 +136,13 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   }
 })
 
-// Update a product by Id
-productsRouter.put('/', userExtractor, async (request, response) => {
+// Update a product by Id // TODO --> improve id type errors
+productsRouter.put('/', userExtractor, upload.single('image'), async (request, response) => {
   const product = request.body
   const { user } = request
 
   try {
-    const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
+    const { res: getRes, err: getErr } = await productsDAO.getProductById(Number(product.id))
 
     if (getRes === null) {
       console.log('error: ', getErr)
@@ -143,13 +171,21 @@ productsRouter.put('/', userExtractor, async (request, response) => {
 
   // update product
   try {
-    const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(product.id, product.name, product.description)
+    const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(Number(product.id), product.name, product.description)
 
     if (typeof updateErr !== 'undefined') {
       console.error(updateErr)
       return response.status(400).send({ 'error': updateErr })
 
     } else {
+      //save image
+      if (request.file) {
+        const wantedName = updateRes.id + path.extname(request.file.originalname).toLowerCase()
+        fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
+          console.error(renameError) // TODO handle renameError
+        })
+      }
+
       return response.json(updateRes)
     }
 
@@ -185,6 +221,11 @@ productsRouter.get('/:id', async (request, response) => {
       return response.status(400).send({ 'error': getErr })
     }
 
+    // add the image if exists
+    if (fs.existsSync('uploads/' + getRes.id + '.jpg')) {
+      productsRouter.use('/' + getRes.id + '/image', express.static('uploads/' + getRes.id + '.jpg'))
+      getRes.img = 'http://localhost:3001/api/products/' + getRes.id + '/image'
+    }
     return response.json(getRes)
 
   } catch (error) {
