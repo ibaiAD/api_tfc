@@ -1,62 +1,79 @@
-// TODO --> Create data type validations for all User and Product fields
+const validator = {
 
-// Users // TODO
-const userValidator = {
-  idValidator: function idValidator(id) {
+  required: function required(data) {
     let err
-    if (typeof id === 'boolean') {
-      err = { "Provided Boolean, expected String": "userName" }
-      return err
-    }
 
-    if (!id && id !== 0) {
-      err = { "required_field_missing": "id" }
-      return err
-    }
+    const key = Object.keys(data)[0]
+    const value = data[key]
 
-    if (typeof id === 'string') {
-      err = { "Provided String, expected Int": "id" }
-      return err
-    }
-
-    if (id % 1 !== 0) {
-      err = { "Provided Float, expected Int": "id" }
+    if (typeof value === 'undefined' || value === null || value === '') {
+      err = { 'required_field_missing': { key, value } }
       return err
     }
   },
 
-  // TODO
-  userNameValidator: function userNameValidator(params) {
+  notNull: function notNull(data) {
+    let err
+    const key = Object.keys(data)[0]
+    const value = data[key]
 
+    if (value === null) {
+      err = { 'Argument must not be null': { key, value } }
+
+      return err
+    }
   },
 
-  // TODO
-  nameValidator: function nameValidator(params) {
+  notEmpty: function notEmpty(data) {
+    let err
+    const key = Object.keys(data)[0]
+    const value = data[key]
 
+    if (value === '') {
+      err = { 'Argument must not be an empty string': { key, value } }
+      return err
+    }
   },
 
-  // TODO
-  descriptionValidator: function descriptionValidator(params) {
+  expectedInt: function expectedInt(data) {
+    let err
+    const key = Object.keys(data)[0]
+    const value = data[key]
 
+    if (typeof value === 'boolean') {
+      err = { 'Provided Boolean, expected Int': { key, value } }
+      return err
+    }
+
+    if (typeof value === 'string') {
+      err = { 'Provided String, expected Int': { key, value } }
+      return err
+    }
+
+    if (value % 1 !== 0) {
+      err = { 'Provided Float, expected Int': { key, value } }
+      return err
+    }
   },
 
-  // TODO
-  passwordValidator: function passwordValidator(params) {
+  expectedString: function expectedString(data) {
+    let err
+    const key = Object.keys(data)[0]
+    const value = data[key]
 
-  },
+    if (typeof value === 'boolean') {
+      err = { 'Provided Boolean, expected String': { key, value } }
+      return err
+    }
 
-  // TODO
-  roleValidator: function roleValidator(params) {
-
+    if (typeof value === 'number') {
+      err = value % 1 === 0
+        ? { 'Provided Int, expected String': { key, value } }
+        : { 'Provided Float, expected String': { key, value } }
+      return err
+    }
   },
 
 }
 
-// Products // TODO
-const productValidator = {}
-
-
-module.exports = {
-  userValidator,
-  productValidator
-}
+module.exports = validator

@@ -1,6 +1,8 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const validator = require('../utils/data_type_validation')
+
 const productsDAO = {
   // Returns all products
   getAllProducts: async function getAllProducts() {
@@ -8,7 +10,7 @@ const productsDAO = {
     return allProducts
   },
 
-  // Returns a product by its Id
+  // Returns a product by its Id // TODO --> Implement data_type_validations
   getProductById: async function getProductById(id) {
     let res, err
 
@@ -36,7 +38,7 @@ const productsDAO = {
     return { res, err }
   },
 
-  // Returns products by name
+  // Returns products by name // TODO --> Implement data_type_validations (if needed)
   getProductsByName: async function getProductsByName(productName) {
     const result = await prisma.product.findMany({
       where: {
@@ -49,7 +51,7 @@ const productsDAO = {
     return result
   },
 
-  // Creates a new product
+  // Creates a new product // TODO --> Implement data_type_validations
   createProduct: async function createProduct(p, userId) {
     let res, err
     const { name, description } = p
@@ -90,7 +92,7 @@ const productsDAO = {
     return { res, err }
   },
 
-  // Deletes a product by its Id
+  // Deletes a product by its Id  // TODO --> Implement data_type_validations (if needed)
   deleteProductById: async function deleteProductById(pId) {
     const deletedProduct = await prisma.product.delete({
       where: {
@@ -101,7 +103,7 @@ const productsDAO = {
     return deletedProduct
   },
 
-  /// Updates a product by its Id
+  /// Updates a product by its Id // TODO --> Implement data_type_validations
   updateProductById: async function updateProductById(pId, name, description) {
     let res, err
 
@@ -116,6 +118,7 @@ const productsDAO = {
     }
 
     // avoid updating data when come from an empty form field as ''
+    // TODO --> implement with validator.notEmpty
     name ||= undefined
     description ||= undefined
 

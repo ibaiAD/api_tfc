@@ -57,3 +57,16 @@ content-type: application/json
   "password": "p4ssw0rd",
   "role": "admin"
 }
+
+###
+
+# With wrong data type
+POST {{baseUrl}}/api/users
+content-type: application/json
+
+{
+  "userName": "Validacion1",
+  "name": null,
+  "description": "",
+  "password": "p4ssw0rd"
+}

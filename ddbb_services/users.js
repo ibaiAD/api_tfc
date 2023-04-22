@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 const bcrypt = require('bcrypt')
 
-const { userValidator } = require('../utils/data_type_validation')
+const validator = require('../utils/data_type_validation')
 
 const usersDAO = {
   // Returns all users
@@ -12,29 +12,15 @@ const usersDAO = {
   },
 
   // Returns a user by userName
-  getUserByUserName: async function getUserByUserName(uName) {
+  getUserByUserName: async function getUserByUserName(userName) {
     let res, err
 
-    if (typeof uName === 'boolean') {
-      err = { "Provided Boolean, expected String": "userName" }
-      return { res, err }
-    }
-
-    if (!uName && uName !== 0) {
-      err = { "required_field_missing": "userName" }
-      return { res, err }
-    }
-
-    if (typeof uName === 'number') {
-      err = uName % 1 === 0
-        ? { "Provided Int, expected String": "userName" }
-        : { "Provided Float, expected String": "userName" }
-      return { res, err }
-    }
+    err = validator.required({ userName }) || validator.expectedString({ userName })
+    if (err) { return { res, err } }
 
     res = await prisma.user.findUnique({
       where: {
-        userName: uName
+        userName: userName
       }
     })
     return { res, err }
@@ -44,7 +30,7 @@ const usersDAO = {
   getUserById: async function getUserById(id) {
     let res, err
 
-    err = userValidator.idValidator(id)
+    err = validator.required({ id }) || validator.expectedInt({ id })
     if (err) { return { res, err } }
 
     res = await prisma.user.findUnique({
@@ -64,20 +50,18 @@ const usersDAO = {
     const { userName, name, description, password } = u
     let passwordHash
 
-    if (!userName) {
-      err = { "required_field_missing": "userName" }
-      return { res, err }
-    }
+    err = validator.required({ userName }) || validator.expectedString({ userName })
+    if (err) { return { res, err } }
 
-    if (!name) {
-      err = { "required_field_missing": "name" }
-      return { res, err }
-    }
+    err = validator.required({ name }) || validator.expectedString({ name })
+    if (err) { return { res, err } }
 
-    if (!password) {
-      err = { "required_field_missing": "password" }
-      return { res, err }
-    }
+    err = validator.required({ password }) || validator.expectedString({ password })
+    if (err) { return { res, err } }
+
+    err = validator.notNull({ description })
+      || validator.expectedString({ description })
+    if (err) { return { res, err } }
 
     try {
       // Encrypts Password --------------------------------->
@@ -121,57 +105,32 @@ const usersDAO = {
     const { id, userName, name, description, password, role } = userData
     console.log({ id }, { userName }, { name }, { description }, { password }, { role })
 
-    // TODO --> gestión de errores de tipos de datos boolean
-    if (typeof userName === 'number') {
-      err = { "Provided Int, expected String": "userName" }
-      return { res, err }
-    }
+    err = validator.required({ id }) || validator.expectedInt({ id })
+    if (err) { return { res, err } }
 
-    if (typeof name === 'number') {
-      err = { "Provided Int, expected String": "name" }
-      return { res, err }
-    }
+    err = validator.notNull({ userName })
+      || validator.notEmpty({ userName })
+      || validator.expectedString({ userName })
+    if (err) { return { res, err } }
 
-    if (typeof description === 'number') {
-      err = { "Provided Int, expected String": "description" }
-      return { res, err }
-    }
+    err = validator.notNull({ name })
+      || validator.notEmpty({ name })
+      || validator.expectedString({ name })
+    if (err) { return { res, err } }
 
-    if (typeof password === 'number') {
-      err = { "Provided Int, expected String": "password" }
-      return { res, err }
-    }
+    err = validator.notNull({ description })
+      || validator.expectedString({ description })
+    if (err) { return { res, err } }
 
-    if (typeof role === 'number') {
-      err = { "Provided Int, expected String": "role" }
-      return { res, err }
-    }
+    err = validator.notNull({ password })
+      || validator.notEmpty({ password })
+      || validator.expectedString({ password })
+    if (err) { return { res, err } }
 
-    // booleans
-    if (typeof userName === 'boolean') {
-      err = { "Provided Boolean, expected String": "userName" }
-      return { res, err }
-    }
-
-    if (typeof name === 'boolean') {
-      err = { "Provided Boolean, expected String": "name" }
-      return { res, err }
-    }
-
-    if (typeof description === 'boolean') {
-      err = { "Provided Boolean, expected String": "description" }
-      return { res, err }
-    }
-
-    if (typeof password === 'boolean') {
-      err = { "Provided Boolean, expected String": "password" }
-      return { res, err }
-    }
-
-    if (typeof role === 'boolean') {
-      err = { "Provided Boolean, expected String": "role" }
-      return { res, err }
-    }
+    err = validator.notNull({ role })
+      || validator.notEmpty({ role })
+      || validator.expectedString({ role })
+    if (err) { return { res, err } }
 
     if (password) {
       // Encrypts Password --------------------------------->

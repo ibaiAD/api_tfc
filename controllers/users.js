@@ -27,10 +27,12 @@ usersRouter.get('/', async (request, response) => {
 
 })
 
-usersRouter.get('/:uName', async (request, response) => {
-  const uName = request.params.uName
+usersRouter.get('/:userName', async (request, response) => {
+  const { userName } = request.params
+
   try {
-    const { res: userFound, err } = await usersDAO.getUserByUserName(uName)
+
+    const { res: userFound, err } = await usersDAO.getUserByUserName(userName)
 
     // deletes password from the user before returning it
     userFound && delete userFound.passwordHash
