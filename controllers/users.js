@@ -123,63 +123,6 @@ usersRouter.delete('/', userExtractor, async (request, response) => {
   }
 })
 
-// usersRouter.put('/abc', async (request, response) => {
-
-//   const FIELDS = new Map([
-//     ['userName', () => usersDAO.updateUserUserName(userName, newData)],
-//     ['name', () => usersDAO.updateUserName(userName, newData)],
-//     ['description', () => usersDAO.updateUserDescription(userName, newData)],
-//     ['password', () => usersDAO.updateUserPassword(userName, newData)],
-//     ['role', () => usersDAO.updateUserRole(userName, newData)]
-//   ])
-
-//   const user = request.body
-//   const { userName, field, newData } = user
-
-//   if (!FIELDS.has(field)) {
-//     return response.status(400).send({ error: 'invalid field' })
-//   }
-
-//   if (field === 'role') {
-//     // TODO check authorization
-//     if (user.token !== 'seguridad') {
-//       return response.status(401).send({ error: 'not allowed' })
-//     }
-//   }
-
-//   try {
-//     const { res, err } = await FIELDS.get(field)()
-//     console.log(res)
-
-//     if (typeof res === 'undefined') {
-//       const { code, meta } = err
-//       // Gestion errores
-//       console.log(code)
-//       if (PRISMA_CODES_400.includes(code)) {
-//         return response.status(400).send({ 'error': meta })
-//       }
-//       if (PRISMA_CODES_404.includes(code)) {
-//         return response.status(404).send({ 'error': meta })
-//       }
-//       if (PRISMA_CODES_409.includes(code)) {
-//         return response.status(409).send({ 'error': meta })
-//       }
-//       console.log(err)
-//       return response.status(600).send({ 'error': err })
-
-//     } else {
-//       return response.json(res)
-//     }
-
-//   } catch (error) {
-//     console.error(error)
-//     process.exit(1)
-//   } finally {
-//     await prisma.$disconnect()
-//   }
-
-// })
-
 usersRouter.put('/', userExtractor, async (request, response) => {
   const { user } = request
   const userData = request.body

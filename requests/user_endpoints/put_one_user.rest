@@ -1,96 +1,6 @@
 # Update a user
 
-# Update userName
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "userName",
-  "newData": "Pruebas_uN"
-}
-
-###
-
-# Update name
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "name",
-  "newData": "Pepe Pepez"
-}
-
-###
-
-# Update description
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "description",
-  "newData": "Usuario para pruebas actualizado"
-}
-
-###
-
-# Update password
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "password",
-  "newData": "1234"
-}
-
-###
-
-# Update role
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "role",
-  "newData": "prueba"
-}
-
-###
-
-# Update non existing field
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Pruebas",
-  "password": "123",
-  "field": "unknown",
-  "newData": "prueba"
-}
-
-###
-
-# Update non existing user's name
-PUT {{baseUrl}}/api/users
-content-type: application/json
-
-{
-  "userName": "Unknown",
-  "password": "123",
-  "field": "name",
-  "newData": "prueba"
-}
-
-### nueva versión
-
+# Update username, name & description
 PUT {{baseUrl}}/api/users
 content-type: application/json
 Authorization: Bearer {{authorization}}
@@ -101,3 +11,33 @@ Authorization: Bearer {{authorization}}
   "name": "Nuevo nombre",
   "description": "Nueva descripción"
 }
+
+###
+
+# Update something with wrong id data type
+PUT {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": 12.2,
+  "userName": "Pruebas",
+  "name": "Nuevo nombre",
+  "description": "Nueva descripción"
+}
+
+###
+
+# Update something with wrong data type
+PUT {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": 12,
+  "userName": "Pruebas",
+  "name": "Nuevo nombre",
+  "description": "Nueva descripción"
+}
+
+###

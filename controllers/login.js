@@ -16,7 +16,9 @@ loginRouter.post('/', async (request, response) => {
   }
 
   if (typeof password === 'number') {
-    const passwordTypeError = { "Provided Int, expected String": "password" }
+    const passwordTypeError = password % 1 === 0
+      ? { "Provided Int, expected String": "password" }
+      : { "Provided Float, expected String": "password" }
     return response.status(400).send({ 'error': passwordTypeError })
   }
 
