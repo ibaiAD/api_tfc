@@ -50,6 +50,18 @@ productsRouter.post('/', userExtractor, upload.single('image'), async (request, 
   const { user } = request
 
   try {
+
+    if (request.file) {
+      // check img extension
+      const extension = path.extname(request.file.originalname)
+      if (!validateExtension(extension)) {
+        fs.unlink(request.file.path, unlinkError => {
+          console.error(unlinkError) // TODO handle unlinkError
+        })
+        return response.status(400).send({ 'error': { 'invalid image extension': extension } })
+      }
+    }
+
     const { res, err } = await productsDAO.createProduct(product, user.id)
 
     if (typeof err !== 'undefined') {
@@ -60,22 +72,11 @@ productsRouter.post('/', userExtractor, upload.single('image'), async (request, 
 
       //save image
       if (request.file) {
-
-        const extension = path.extname(request.file.originalname)
-        if (!validateExtension(extension)) {
-          productsDAO.deleteProductById(res.id) // delete product, probably not the best idea
-          fs.unlink(request.file.path, unlinkError => {
-            console.error(unlinkError) // TODO handle unlinkError
-          })
-          return response.status(400).send({ 'error': { 'invalid image extension': extension } })
-        }
-
         const wantedName = res.id + '.jpg'
         fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
           console.error(renameError) // TODO handle renameError
         })
       }
-
 
       return response.status(201).json(res)
     }
