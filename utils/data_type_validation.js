@@ -40,8 +40,6 @@ const validator = {
     const key = Object.keys(data)[0]
     const value = data[key]
 
-    console.log('isNaN(value)', isNaN(value))
-
     if (typeof value === 'boolean') {
       err = { 'Provided Boolean, expected Int': { key, value } }
       return err
@@ -62,8 +60,6 @@ const validator = {
     let err
     const key = Object.keys(data)[0]
     let value = data[key]
-
-    console.log('isNaN(value)', isNaN(value))
 
     if (typeof value === 'boolean') {
       err = { 'Provided Boolean, expected Int': { key, value } }

@@ -10,6 +10,7 @@ const upload = multer({ dest: 'uploads/' })
 const { productsDAO } = require('../ddbb_services')
 const { handlePrismaErrors } = require('../utils/prisma_codes')
 const USER_ROLES = require('../utils/user_roles')
+const validateExtension = require('../utils/image_extensions')
 const userExtractor = require('../middlewares/userExtractor')
 
 // Get products
@@ -59,11 +60,22 @@ productsRouter.post('/', userExtractor, upload.single('image'), async (request, 
 
       //save image
       if (request.file) {
-        const wantedName = res.id + path.extname(request.file.originalname).toLowerCase()
+
+        const extension = path.extname(request.file.originalname)
+        if (!validateExtension(extension)) {
+          productsDAO.deleteProductById(res.id) // delete product, probably not the best idea
+          fs.unlink(request.file.path, unlinkError => {
+            console.error(unlinkError) // TODO handle unlinkError
+          })
+          return response.status(400).send({ 'error': { 'invalid image extension': extension } })
+        }
+
+        const wantedName = res.id + '.jpg'
         fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
           console.error(renameError) // TODO handle renameError
         })
       }
+
 
       return response.status(201).json(res)
     }
@@ -178,6 +190,24 @@ productsRouter.put('/', userExtractor, upload.single('image'), async (request, r
 
   // update product
   try {
+
+    //save image
+    if (request.file) {
+
+      const extension = path.extname(request.file.originalname)
+      if (!validateExtension(extension)) {
+        fs.unlink(request.file.path, unlinkError => {
+          console.error(unlinkError) // TODO handle unlinkError
+        })
+        return response.status(400).send({ 'error': { 'invalid image extension': extension } })
+      }
+
+      const wantedName = product.id + '.jpg'
+      fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
+        console.error(renameError) // TODO handle renameError
+      })
+    }
+
     const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(Number(product.id), product.name, product.description)
 
     if (typeof updateErr !== 'undefined') {
@@ -185,13 +215,6 @@ productsRouter.put('/', userExtractor, upload.single('image'), async (request, r
       return response.status(400).send({ 'error': updateErr })
 
     } else {
-      //save image
-      if (request.file) {
-        const wantedName = updateRes.id + path.extname(request.file.originalname).toLowerCase()
-        fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
-          console.error(renameError) // TODO handle renameError
-        })
-      }
 
       return response.json(updateRes)
     }
