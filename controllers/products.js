@@ -115,14 +115,21 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
 
   // delete product
   try {
-    const deletedProduct = await productsDAO.deleteProductById(product.id)
+    const { res: deletedProduct, err: deleteErr } = await productsDAO.deleteProductById(product.id)
 
-    // delete product image
-    fs.unlink('uploads/' + deletedProduct.id + '.jpg', error => {
-      console.error(error) // TODO handle error ?
-    })
+    if (typeof deleteErr !== 'undefined') {
+      console.error(deleteErr)
+      return response.status(400).send({ 'error': deleteErr })
 
-    return response.status(204).end()
+    } else {
+      // delete product image
+      fs.unlink('uploads/' + deletedProduct.id + '.jpg', error => {
+        console.error(error) // TODO handle error ?
+      })
+
+      return response.status(204).end()
+
+    }
 
   } catch (error) {
     console.error(error)
@@ -136,13 +143,13 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
   }
 })
 
-// Update a product by Id // TODO --> improve id type errors
+// Update a product by Id
 productsRouter.put('/', userExtractor, upload.single('image'), async (request, response) => {
   const product = request.body
   const { user } = request
 
   try {
-    const { res: getRes, err: getErr } = await productsDAO.getProductById(Number(product.id))
+    const { res: getRes, err: getErr } = await productsDAO.getProductById(product.id)
 
     if (getRes === null) {
       console.log('error: ', getErr)

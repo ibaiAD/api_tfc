@@ -10,35 +10,23 @@ const productsDAO = {
     return allProducts
   },
 
-  // Returns a product by its Id // TODO --> Implement data_type_validations
+  // Returns a product by its Id
   getProductById: async function getProductById(id) {
     let res, err
 
-    if (!id && id !== 0) {
-      err = { "required_field_missing": "id" }
-      return { res, err }
-    }
-
-    if (typeof id === 'string') {
-      err = { "Provided String, expected Int": "id" }
-      return { res, err }
-    }
-
-    if (id % 1 !== 0) {
-      err = { "Provided Float, expected Int": "id" }
-      return { res, err }
-    }
+    err = validator.required({ id }) || validator.expectedIntAsString({ id })
+    if (err) { return { res, err } }
 
     res = await prisma.product.findUnique({
       where: {
-        id: id
+        id: Number(id)
       }
     })
 
     return { res, err }
   },
 
-  // Returns products by name // TODO --> Implement data_type_validations (if needed)
+  // Returns products by name
   getProductsByName: async function getProductsByName(productName) {
     const result = await prisma.product.findMany({
       where: {
@@ -51,36 +39,21 @@ const productsDAO = {
     return result
   },
 
-  // Creates a new product // TODO --> Implement data_type_validations
+  // Creates a new product
   createProduct: async function createProduct(p, userId) {
     let res, err
     const { name, description } = p
 
-    if (!name) {
-      err = { "required_field_missing": "name" }
-      return { res, err }
-    }
+    err = validator.required({ name }) || validator.expectedString({ name })
+    if (err) { return { res, err } }
 
-    if (!userId) {
-      err = { "required_field_missing": "userId" }
-      return { res, err }
-    }
-
-    if (typeof name === 'number') {
-      err = { "Provided Int, expected String": "name" }
-      return { res, err }
-    }
-
-    if (typeof description === 'number') {
-      err = { "Provided Int, expected String": "description" }
-      return { res, err }
-    }
+    err = validator.notNull({ description })
+      || validator.expectedString({ description })
+    if (err) { return { res, err } }
 
     // Extracted from the token, this should never happen
-    if (typeof userId === 'string') {
-      err = { "Provided String, expected Int": "userId" }
-      return { res, err }
-    }
+    err = validator.required({ userId }) || validator.expectedInt({ userId })
+    if (err) { return { res, err } }
 
     res = await prisma.product.create({
       data: {
@@ -92,33 +65,35 @@ const productsDAO = {
     return { res, err }
   },
 
-  // Deletes a product by its Id  // TODO --> Implement data_type_validations (if needed)
-  deleteProductById: async function deleteProductById(pId) {
-    const deletedProduct = await prisma.product.delete({
+  // Deletes a product by its Id
+  deleteProductById: async function deleteProductById(id) {
+    let res, err
+
+    err = validator.required({ id }) || validator.expectedInt({ id })
+    if (err) { return { res, err } }
+
+    res = await prisma.product.delete({
       where: {
-        id: pId,
+        id: id,
       },
     })
 
-    return deletedProduct
+    return { res, err }
   },
 
-  /// Updates a product by its Id // TODO --> Implement data_type_validations
+  /// Updates a product by its Id
   updateProductById: async function updateProductById(pId, name, description) {
     let res, err
 
-    if (typeof name === 'number') {
-      err = { "Provided Int, expected String": "name" }
-      return { res, err }
-    }
+    err = validator.notNull({ name })
+      || validator.expectedString({ name })
+    if (err) { return { res, err } }
 
-    if (typeof description === 'number') {
-      err = { "Provided Int, expected String": "description" }
-      return { res, err }
-    }
+    err = validator.notNull({ description })
+      || validator.expectedString({ description })
+    if (err) { return { res, err } }
 
     // avoid updating data when come from an empty form field as ''
-    // TODO --> implement with validator.notEmpty
     name ||= undefined
     description ||= undefined
 

@@ -51,3 +51,14 @@ Authorization: Bearer {{authorization}}
 {
   "id": 12.34
 }
+
+###
+
+# With wrong id type boolean
+DELETE  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": false
+}

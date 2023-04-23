@@ -52,7 +52,7 @@ content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
-  "id": "2"
+  "id": "12.2"
 }
 
 ###
@@ -63,7 +63,7 @@ content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
-  "id": 42,
+  "id": 50,
   "name": 1,
   "description": 123
 }

@@ -40,6 +40,8 @@ const validator = {
     const key = Object.keys(data)[0]
     const value = data[key]
 
+    console.log('isNaN(value)', isNaN(value))
+
     if (typeof value === 'boolean') {
       err = { 'Provided Boolean, expected Int': { key, value } }
       return err
@@ -49,6 +51,33 @@ const validator = {
       err = { 'Provided String, expected Int': { key, value } }
       return err
     }
+
+    if (value % 1 !== 0) {
+      err = { 'Provided Float, expected Int': { key, value } }
+      return err
+    }
+  },
+
+  expectedIntAsString: function expectedIntAsString(data) {
+    let err
+    const key = Object.keys(data)[0]
+    let value = data[key]
+
+    console.log('isNaN(value)', isNaN(value))
+
+    if (typeof value === 'boolean') {
+      err = { 'Provided Boolean, expected Int': { key, value } }
+      return err
+    }
+
+    if (isNaN(value)) {
+      if (typeof value === 'string') {
+        err = { 'Provided String, expected Int': { key, value } }
+        return err
+      }
+    }
+
+    value = Number(value)
 
     if (value % 1 !== 0) {
       err = { 'Provided Float, expected Int': { key, value } }

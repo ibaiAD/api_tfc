@@ -10,5 +10,10 @@ GET {{baseUrl}}/api/products?name=unknown
 
 ###
 
+# Without a number as name
+GET {{baseUrl}}/api/products?name=1
+
+###
+
 # Without name and with a parameter that does not exist
-GET {{baseUrl}}/api/products?fasdf
+GET {{baseUrl}}/api/products?unknown=unknown
