@@ -10,15 +10,15 @@
 </head>
 
 <body>
-  <header>
-    <h1>Documentación</h1>
+  <header class="header">
+    <h1 class="primary-heading">Documentación</h1>
   </header>
-  <nav>
+  <nav class="top-nav">
     <a href="/">Documentación</a> | <a href="/playground">Playground</a>
   </nav>
-  <div id="container">
-    <aside id="left">
-      <ol id="menu">
+  <div class="container">
+    <aside class="left">
+      <ol class="left__menu">
         <li><a href="#introduction">Introducción</a>
           <ol>
             <li><a href="#introduction-1">Descripción del proyecto</a></li>
@@ -43,11 +43,11 @@
         <li><a href="#definitions">Definiciones</a></li>
       </ol>
     </aside>
-    <main id="documentation">
+    <main class="documentation">
       <section id="introduction">
-        <h2>1. Introducción</h2>
+        <h2 class="secondary-heading">1. Introducción</h2>
         <article id="introduction-1">
-          <h3>1.1. Descripción del proyecto</h3>
+          <h3 class="tertiary-heading">1.1. Descripción del proyecto</h3>
           <p>
             Proyecto final del ciclo de grado superior de <strong>Desarrollo de Aplicaciones Web</strong> en el CIFP
             Elorrieta Erreka Mari.
@@ -63,7 +63,7 @@
         </article>
 
         <article id="introduction-2">
-          <h3>1.2. ¿Por qué una API?</h3>
+          <h3 class="tertiary-heading">1.2. ¿Por qué una API?</h3>
           <p>Esta solución permite tener un <a href="#definition-backend" class="definition">back-end</a> totalmente
             desacoplado que puede ser consumido por distintos
             <a href="#definition-frontend" class="definition">front-ends</a> (web, movil, escritorio, etc). Pudiendo
@@ -74,46 +74,52 @@
       </section>
 
       <section id="technologies">
-        <h2>2. Tecnologías</h2>
-        <article id="technology-1">
-          <h3>2.1. Node.js </h3>
-          <a href="https://nodejs.org">Web Oficial de Node</a>
+        <h2 class="secondary-heading">2. Tecnologías</h2>
+        <article id="technology-1" class="clearfix">
+          <h3 class="tertiary-heading">2.1. Node.js</h3>
+          <a href="https://nodejs.org" class="article__link" target="_blank">
+            <img src="./img/node.png" alt="node.js" class="article__link__img">
+          </a>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi nesciunt dolore id accusantium veritatis
             quod nobis necessitatibus et alias laborum.</p>
         </article>
 
-        <article id="technology-2">
-          <h3>2.2. Express.js</h3>
+        <article id="technology-2" class="clearfix">
+          <h3 class="tertiary-heading">2.2. Express.js</h3>
           <a href="https://expressjs.com/">Web Oficial de Express</a>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
             rerum fuga quia facere quisquam?</p>
         </article>
 
-        <article id="technology-3">
-          <h3>2.3. Prisma</h3>
-          <a href="https://www.prisma.io/">Web Oficial de Prisma</a>
+        <article id="technology-3" class="clearfix">
+          <h3 class="tertiary-heading">2.3. Prisma</h3>
+          <a href="https://www.prisma.io/" class="article__link" target="_blank">
+            <img src="./img/prisma.png" alt="node.js" class="article__link__img">
+          </a>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
             rerum fuga quia facere quisquam?</p>
         </article>
 
-        <article id="technology-4">
-          <h3>2.4. MySQL</h3>
-          <a href="https://www.mysql.com/">Web Oficial de MySQL</a>
+        <article id="technology-4" class="clearfix">
+          <h3 class="tertiary-heading">2.4. MySQL</h3>
+          <a href="https://www.mysql.com/" class="article__link" target="_blank">
+            <img src="./img/mysql.png" alt="node.js" class="article__link__img">
+          </a>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
             rerum fuga quia facere quisquam?</p>
         </article>
 
-        <article id="technology-5">
-          <h3>2.5. JavaScript vs TypeScript</h3>
+        <article id="technology-5" class="clearfix">
+          <h3 class="tertiary-heading">2.5. JavaScript vs TypeScript</h3>
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
             rerum fuga quia facere quisquam?</p>
         </article>
       </section>
 
       <section id="other-tools">
-        <h2>3. Otras herramientas</h2>
+        <h2 class="secondary-heading">3. Otras herramientas</h2>
         <article id="tool-1">
-          <h3>3.1. REST Client</h3>
+          <h3 class="tertiary-heading">3.1. REST Client</h3>
           <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client">
             Documentación de REST Client
           </a>
@@ -123,12 +129,12 @@
       </section>
 
       <section id="definitions">
-        <h2>N. Definiciones</h2>
+        <h2 class="secondary-heading">N. Definiciones</h2>
         <article id="definition-api">
-          <h3>API</h3>
+          <h3 class="tertiary-heading">API</h3>
         </article>
         <article id="definition-crud">
-          <h3>CRUD</h3>
+          <h3 class="tertiary-heading">CRUD</h3>
         </article>
       </section>
 

@@ -10,21 +10,21 @@
 </head>
 
 <body>
-  <header>
-    <h1>Playground</h1>
+  <header class="header">
+    <h1 class="primary-heading">Playground</h1>
   </header>
-  <nav>
+  <nav class="top-nav">
     <a href="/">Documentación</a> | <a href="/playground">Playground</a>
   </nav>
-  <div id="container">
-    <aside id="left">
-      <ol>
+  <div class="container">
+    <aside class="left">
+      <ol class="left__menu">
         <li><a id="login" href="#">Login</a></li>
         <li><a id="users" href="#">Usuarios</a></li>
         <li><a id="products" href="#">Productos</a></li>
       </ol>
     </aside>
-    <main id="playground">
+    <main class="playground">
       <div id="post-product-container">
         <h3>POST: /api/products</h3>
         <form id="post-product" action="/api/products" method="post" enctype="multipart/form-data">

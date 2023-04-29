@@ -1,3 +1,28 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  /* 1rem = 10px */
+}
+
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-weight: 400;
+  padding: 2rem;  
+}
+
+:root {
+  --navigation-links: #333;
+  --navigation-links-hover: orangered;
+}
+
 /* Inicio ayudas para maquetar */
 
 /* body * {
@@ -15,48 +40,65 @@ article {
 
 /* Fin ayudas para maquetar */
 
-header h1 {
+/* UTILITIES ----------------> */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* UTILITIES <---------------- */
+
+
+a {
+  text-decoration: none;
+}
+
+/* ANCHORS AND NAV LINKS */
+a:link[href^="#"],
+a:link[href^="/"],
+a:visited[href^="#"],
+a:visited[href^="/"] {
+  color: var(--navigation-links);
+}
+
+a:hover[href^="#"],
+a:hover[href^="/"],
+a:active[href^="#"],
+a:active[href^="/"] {
+  color: var(--navigation-links-hover);
+}
+
+.header {
+  padding: 1rem;
+}
+
+.header .primary-heading {
+  font-size: 3rem;
   text-align: center;
 }
 
-nav {
+.top-nav {
+  font-size: 1.6rem;
   text-align: center;
+  padding: .5rem;
+  margin-bottom: 1rem;
 }
 
-#container {
+.container {
   display: flex;
 }
 
-#container>* {
-  padding: 1em;
+.container>* {
+  padding: 1rem;
 }
 
-section {
-  padding: 1em;
-  margin-bottom: 2em;
-}
-
-article {
-  padding: .5em;
-}
-
-article:not(:last-of-type) {
-  margin-bottom: 1em;
-}
-
-aside#left {
+.left {
   flex: 1 1;
+  font-size: 1.4rem;
 }
 
-main#documentation {
-  flex: 4 2;
-}
-
-main#playground {
-  flex: 4 2;
-}
-
-#menu {
+.left__menu {
   position: fixed;
 }
 
@@ -71,13 +113,13 @@ ol {
 ol>li {
   display: table;
   counter-increment: item;
-  margin-bottom: 0.6em;
+  margin-bottom: 0.6rem;
 }
 
 ol>li:before {
   content: counters(item, ".") ". ";
   display: table-cell;
-  padding-right: 0.6em;
+  padding-right: 0.6rem;
 }
 
 li ol>li {
@@ -90,11 +132,95 @@ li ol>li:before {
 
 /* Fin subindices */
 
+.documentation {
+  flex: 4 2;
+  font-size: 1.6rem;
+  /*TODO DELETE AFTER*/
+}
+
+.playground {
+  flex: 4 2;
+}
+
+section {
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.secondary-heading {
+  font-size: 2.4rem;
+  margin-bottom: 1.5rem;
+}
+
+article {
+  padding: .5rem;
+}
+
+article:not(:last-of-type) {
+  margin-bottom: 1rem;
+}
+
+.tertiary-heading {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.article__link {
+  float: left;
+  width: 15rem;
+  padding: 1rem;
+  margin: 0 2rem 2rem 0;
+}
+
+.article__link__img {
+  width: 100%;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+/* MEDIA QUERIES */
+
+/* 1200px = 75em */
+/* 900px = 56.25em */
+
+/* Font size */
+@media (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+}
+
 @media print {
 
-  aside#left,
+  body {
+    font-family: serif;
+  }
+
+  .left,
   nav {
     display: none;
   }
 
+}
+
+@media screen and (max-width: 56.25em) {
+
+  .container {
+    display: block;
+  }
+
+  .left__menu {
+    position: static;
+  }
 }
