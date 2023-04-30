@@ -21,7 +21,7 @@ body {
 :root {
   --navigation-links: #333;
   --navigation-links-hover: orangered;
-  --color-section: #ccc;
+  --color-section: #ddd;
   --color-almost-white: #f7f7f7;
 }
 
@@ -184,12 +184,23 @@ article:not(:last-of-type) {
   width: 100%;
 }
 
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
+article p+p {
+  margin-top: 1rem;
 }
 
+.quaternary-heading {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.quaternary-heading:not(:first-child){
+  margin-top: 1.5rem;
+
+}
+
+.quaternary-heading:first-of-type{
+  clear: both;
+}
 
 /* MEDIA QUERIES */
 

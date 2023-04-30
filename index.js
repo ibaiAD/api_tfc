@@ -19,39 +19,6 @@ app.use('/playground', express.static('public/playground.html'))
 
 app.use(requestLogger)
 
-// Prueba upload images ------------------> BORRAR AL TERMINAR
-const path = require("path") // move to top part
-const multer = require('multer') //  move to top part
-const fs = require("fs") // move to top part
-const userExtractor = require('./middlewares/userExtractor') // move to top part
-
-const upload = multer({ dest: 'uploads/' })
-
-app.post('/upload', upload.single('image'), (request, response) => {
-  console.log('request.file', request.file) // delete
-  console.log('request.body', request.body) // delete
-  console.log('__dirname', __dirname) // delete
-  console.log('request.file.path', request.file?.path) // delete  
-  console.log('request.file.originalname', request.file?.originalname) // delete
-
-  if (request.file) {
-    console.log('request.file.destination', request.file.destination) // delete
-    console.log('path.extname(request.file.originalname)', path.extname(request.file.originalname)) // delete
-    const wantedName = 'imagen_prueba' + path.extname(request.file.originalname).toLowerCase()
-
-    fs.rename(request.file.path, request.file.destination + wantedName, renameError => {
-      console.error(renameError)
-      console.log('renombra')
-    })
-  }
-
-  // fs.rm('uploads/' + 'imagen_prueba.jpg', () => console.log('elimina')) // delete
-  // fs.unlink('uploads/' + 'imagen_prueba.jpg', () => console.log('elimina')) // delete
-
-  return response.json({ 'file': request.file, 'body': request.body })
-})
-// <---------------------------------------
-
 // Endpoints api/users ------------------->
 app.use('/api/users', usersRouter)
 // <---------------------------------------
