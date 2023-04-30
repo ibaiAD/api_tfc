@@ -159,7 +159,7 @@ section:not(:last-of-type) {
 }
 
 article {
-  padding: 1rem;
+  padding: 2rem;
   border-radius: 3px;
   background-color: var(--color-almost-white);
 }
@@ -193,14 +193,24 @@ article p+p {
   margin-bottom: 1rem;
 }
 
-.quaternary-heading:not(:first-child){
+.quaternary-heading:not(:first-child) {
   margin-top: 1.5rem;
 
 }
 
-.quaternary-heading:first-of-type{
+.quaternary-heading:first-of-type {
   clear: both;
 }
+
+article ul {
+  list-style-position: inside;
+  margin: 1rem;
+}
+
+article ul li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
 
 /* MEDIA QUERIES */
 
