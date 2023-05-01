@@ -36,11 +36,12 @@
         </li>
         <li><a href="#other-tools">Otras herramientas</a>
           <ol>
-            <li><a href="#tool-1">REST Client</a></li>
-            <li><a href="#tool-2">Nodemon</a></li>
-            <li><a href="#tool-3">JWT - Jason Web Token</a></li>
-            <li><a href="#tool-4">Bcrypt</a></li>
-            <li><a href="#tool-5">Multer</a></li>
+            <li><a href="#tool-1">npm</a></li>
+            <li><a href="#tool-2">REST Client</a></li>
+            <li><a href="#tool-3">Nodemon</a></li>
+            <li><a href="#tool-4">JWT - Jason Web Token</a></li>
+            <li><a href="#tool-5">Bcrypt</a></li>
+            <li><a href="#tool-6">Multer</a></li>
           </ol>
         </li>
         <li><a href="#">Endpoints</a>
@@ -294,8 +295,22 @@
           <a href="https://www.mysql.com/" class="article__link" target="_blank">
             <img src="./img/mysql.png" alt="node.js" class="article__link__img">
           </a>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
-            rerum fuga quia facere quisquam?</p>
+          <p>
+            MySQL es un sistema de gestión de bases de datos relacional desarrollado bajo licencia dual: Licencia
+            pública general/Licencia comercial por Oracle Corporation y está considerada como la base de datos de código
+            abierto más popular del mundo, y una de las más populares en general junto a Oracle y Microsoft SQL Server,
+            todo para entornos de desarrollo web.
+          </p>
+          <p>
+            Está desarrollado en su mayor parte en ANSI C y C++. Tradicionalmente se considera uno de los cuatro
+            componentes de la pila de desarrollo LAMP y WAMP.
+          </p>
+          <p>
+            MySQL es una base de datos muy rápida en la lectura cuando utiliza el motor no transaccional MyISAM, pero
+            puede provocar problemas de integridad en entornos de alta concurrencia en la modificación. En aplicaciones
+            web hay baja concurrencia en la modificación de datos y en cambio el entorno es intensivo en lectura de
+            datos, lo que hace a MySQL ideal para este tipo de aplicaciones.
+          </p>
         </article>
 
         <!-- article JS vs TS -->
@@ -304,8 +319,39 @@
           <a href="https://www.typescriptlang.org/" class="article__link" target="_blank">
             <img src="./img/jsvsts.jpg" alt="node.js" class="article__link__img">
           </a>
-          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam, ex hic. Quam repellendus laudantium corporis
-            rerum fuga quia facere quisquam?</p>
+          <p>
+            TypeScript es un lenguaje de programación que es un superconjunto (superset) de JavaScript. Fue creado para
+            construir aplicaciones a gran escala.
+          </p>
+          <h4 class="quaternary-heading">Ventajas</h4>
+          <ul>
+            <li>
+              Tipado estático, tanto con anotaciones como con inferencia.
+            </li>
+            <li>
+              Detección temprana de errores, detecta errores en tiempo de compilación.
+            </li>
+            <li>
+              Previsibilidad, todo permanece como fue inicialmente definido.
+            </li>
+            <li>
+              POO/OOP, añade interfaces.
+            </li>
+          </ul>
+          <h4 class="quaternary-heading">Desventajas</h4>
+          <ul>
+            <li>
+              Mayor tiempo de compilación, necesita un paso previo de transpilación.
+            </li>
+            <li>
+              Un lenguaje más que aprender, a pesar de su semejanza, necesitas invertir tiempo y esfuerzo en aprender
+              las diferencias.
+            </li>
+            <li>
+              Más código, puede relentizar el proceso de desarrollo.
+            </li>
+          </ul>
+
         </article>
       </section>
 
@@ -313,42 +359,126 @@
       <section id="other-tools">
         <h2 class="secondary-heading">3. Otras herramientas</h2>
         <article id="tool-1" class="clearfix">
-          <h3 class="tertiary-heading">3.1. REST Client</h3>
+          <h3 class="tertiary-heading">3.1. npm</h3>
+          <a href="https://www.npmjs.com/" class="article__link" target="_blank">
+            <img src="./img/npm.png" alt="node.js" class="article__link__img">
+          </a>
+          <p>
+            npm es un administrador de paquetes para el lenguaje de programación JavaScript mantenido por npm, Inc. y es
+            el administrador de paquetes predeterminado para el entorno de tiempo de ejecución de JavaScript Node.js.
+          </p>
+          <p>
+            Consiste en un cliente de línea de comandos, también llamado npm, y una base de datos en línea de paquetes
+            públicos y privados pagados, llamada registro npm.
+          </p>
+          <p>
+            Se accede al registro a través del cliente, y los paquetes disponibles se pueden explorar y buscar a través
+            del sitio web de npm. El administrador de paquetes y el registro son administrados por npm, Inc.
+          </p>
+        </article>
+        <article id="tool-2" class="clearfix">
+          <h3 class="tertiary-heading">3.2. REST Client</h3>
           <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client" class="article__link"
             target="_blank">
             <img src="./img/rest_client.png" alt="node.js" class="article__link__img">
           </a>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. At sapiente, obcaecati ab velit dolore corrupti
-            quia quidem quas id quae!</p>
+          <p>
+            REST Client es una extensión de Visual Studio Code que te permite enviar peticiones HTTP y ver la respuesta
+            en Visual Studio Code directamente.
+          </p>
+          <h4 class="quaternary-heading">¿Por qué la he utilizado?</h4>
+          <ul>
+            <li>
+              Enviar/Cancelar/Devolver peticiones HTTP en el editor y ver la respuesta en un panel separado con
+              resaltado de sintaxis
+            </li>
+            <li>
+              Guardar múltiples peticiones en un mismo archivo (separadas con el delimitador ###) y que queden
+              guardadas en el proyecto para poder testear la API.
+            </li>
+            <li>
+              Soporte para autenticación
+            </li>
+            <li>
+              Soporte para variables de entorno y personalizadas/del sistema
+            </li>
+          </ul>
+
+
         </article>
-        <article id="tool-2" class="clearfix">
-          <h3 class="tertiary-heading">3.2. Nodemon</h3>
+        <article id="tool-3" class="clearfix">
+          <h3 class="tertiary-heading">3.3. Nodemon</h3>
           <a href="https://nodemon.io/" class="article__link" target="_blank">
             <img src="./img/nodemon.png" alt="node.js" class="article__link__img">
           </a>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis eveniet perferendis a autem sequi
-            corporis, sed libero nesciunt maiores tempora?</p>
+          <p>
+            Nodemon es una herramienta que ayuda a desarrollar aplicaciones basadas en Node.js al reiniciar
+            automáticamente la aplicación de node cuando se detectan cambios de archivos en el directorio.
+          </p>
+          <p>
+            Nodemon no requiere ningún cambio adicional en su código o método de desarrollo. nodemon es una envoltura de
+            reemplazo para node. Para usar nodemon, reemplace la palabra “node” en la línea de comando cuando ejecute su
+            script.
+          </p>
         </article>
-        <article id="tool-3" class="clearfix">
-          <h3 class="tertiary-heading">3.3. JWT - Jason Web Token</h3>
+        <article id="tool-4" class="clearfix">
+          <h3 class="tertiary-heading">3.4. JWT - Jason Web Token</h3>
           <a href="https://jwt.io/" class="article__link" target="_blank">
             <img src="./img/jwt.png" alt="node.js" class="article__link__img">
           </a>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora magni vel quos exercitationem, expedita
-            voluptatum fugit quia rerum quisquam ipsum.</p>
-        </article>
-        <article id="tool-4" class="clearfix">
-          <h3 class="tertiary-heading">3.4. Bcrypt</h3>
-          <a href=""></a>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod sunt voluptatem, adipisci accusantium
-            voluptate perferendis temporibus iste laborum assumenda quasi.</p>
+          <p>
+            JSON Web Token (abreviado JWT) es un estándar abierto basado en JSON propuesto por IETF (RFC 7519) para la
+            creación de tokens de acceso que permiten la propagación de identidad y privilegios (claims).
+          </p>
+          <p>
+            Por ejemplo, un servidor podría generar un token indicando que el usuario tiene privilegios de administrador
+            y proporcionarlo a un cliente. El cliente entonces podría utilizar el token para probar que está actuando
+            como un administrador en el cliente o en otro sistema.
+          </p>
+          <p>
+            El token está firmado por la clave del servidor, así que el cliente y el servidor son ambos capaces de
+            verificar que el token es legítimo.
+          </p>
+          <p>
+            Los JSON Web Tokens están diseñados para ser compactos, poder ser enviados en las URLs -URL-safe- y ser
+            utilizados en escenarios de Single Sign-On (SSO).
+          </p>
+          <p>
+            Los privilegios de los JSON Web Tokens pueden ser utilizados para propagar la identidad de usuarios como
+            parte del proceso de autenticación entre un proveedor de identidad y un proveedor de servicio, o cualquiera
+            otro tipo de privilegios requeridos.
+          </p>
         </article>
         <article id="tool-5" class="clearfix">
-          <h3 class="tertiary-heading">3.5. Multer</h3>
-          <a href=""></a>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi aliquid, aspernatur fugiat aperiam id
-            reprehenderit. Quam enim quas facilis porro officiis illum nihil voluptates doloribus, doloremque quidem
-            minima, architecto quia?</p>
+          <h3 class="tertiary-heading">3.5. Bcrypt</h3>
+          <p>
+            Bcrypt es una función de hashing de contraseñas diseñada por Niels Provos y David Mazières, basada en el
+            cifrado Blowfish y presentada en USENIX en 1999.
+          </p>
+          <p>
+            Además de incorporar una sal para proteger contra los ataques de la tabla arcoíris, bcrypt es una función
+            adaptativa: con el tiempo, el número de iteraciones se puede aumentar para hacerlo más lento, por lo que
+            sigue siendo resistente a los ataques de búsqueda de fuerza bruta, incluso con una potencia de cálculo cada
+            vez mayor.
+          </p>
+          <p>
+            La función bcrypt es el algoritmo hash de contraseña predeterminado para OpenBSD y fue el predeterminado
+            para algunas distribuciones de Linux como SUSE Linux.
+          </p>
+          <p>
+            Hay implementaciones de bcrypt en C, C++, C#, Delphi, Elixir, Go, Java, JavaScript, Perl, PHP, Python, Ruby,
+            and other languages.
+          </p>
+        </article>
+        <article id="tool-6" class="clearfix">
+          <h3 class="tertiary-heading">3.6. Multer</h3>
+          <p>
+            Multer es un "middleware" de node.js para el manejo de multipart/form-data, el cual es usado sobre todo para
+            la subida de archivos. Está escrito sobre busboy para maximizar su eficiencia.
+          </p>
+          <p>
+            Multer no procesará ningún formulario que no sea multiparte (multipart/form-data).
+          </p>
         </article>
       </section>
 
