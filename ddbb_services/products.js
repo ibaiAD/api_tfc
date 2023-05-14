@@ -69,12 +69,12 @@ const productsDAO = {
   deleteProductById: async function deleteProductById(id) {
     let res, err
 
-    err = validator.required({ id }) || validator.expectedInt({ id })
+    err = validator.required({ id }) || validator.expectedIntAsString({ id })
     if (err) { return { res, err } }
 
     res = await prisma.product.delete({
       where: {
-        id: id,
+        id: Number(id),
       },
     })
 
@@ -82,8 +82,11 @@ const productsDAO = {
   },
 
   /// Updates a product by its Id
-  updateProductById: async function updateProductById(pId, name, description) {
+  updateProductById: async function updateProductById(id, name, description) {
     let res, err
+
+    err = validator.required({ id }) || validator.expectedIntAsString({ id })
+    if (err) { return { res, err } }
 
     err = validator.notNull({ name })
       || validator.expectedString({ name })
@@ -99,7 +102,7 @@ const productsDAO = {
 
     res = await prisma.product.update({
       where: {
-        id: pId,
+        id: Number(id),
       },
       data: {
         name: name,

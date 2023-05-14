@@ -13,6 +13,19 @@ Authorization: Bearer {{authorization}}
 
 ###
 
+# With id as String Int
+PUT  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": "50",
+  "name": "Edited name",
+  "description": "Edited description"
+}
+
+###
+
 # With only one field
 PUT  {{baseUrl}}/api/products
 content-type: application/json

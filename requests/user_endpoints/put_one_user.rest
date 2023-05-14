@@ -14,6 +14,20 @@ Authorization: Bearer {{authorization}}
 
 ###
 
+# Update with id as String Int
+PUT {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": "12",
+  "userName": "Pruebas",
+  "name": "Nuevo nombre",
+  "description": "Nueva descripción"
+}
+
+###
+
 # Update something with wrong id data type
 PUT {{baseUrl}}/api/users
 content-type: application/json

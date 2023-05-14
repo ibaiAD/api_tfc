@@ -30,12 +30,12 @@ const usersDAO = {
   getUserById: async function getUserById(id) {
     let res, err
 
-    err = validator.required({ id }) || validator.expectedInt({ id })
+    err = validator.required({ id }) || validator.expectedIntAsString({ id })
     if (err) { return { res, err } }
 
     res = await prisma.user.findUnique({
       where: {
-        id: id
+        id: Number(id)
       }
     })
 
@@ -105,7 +105,7 @@ const usersDAO = {
     const { id, userName, name, description, password, role } = userData
     console.log({ id }, { userName }, { name }, { description }, { password }, { role })
 
-    err = validator.required({ id }) || validator.expectedInt({ id })
+    err = validator.required({ id }) || validator.expectedIntAsString({ id })
     if (err) { return { res, err } }
 
     err = validator.notNull({ userName })
@@ -141,7 +141,7 @@ const usersDAO = {
 
     res = await prisma.user.update({
       where: {
-        id: id,
+        id: Number(id),
       },
       data: {
         userName: userName,

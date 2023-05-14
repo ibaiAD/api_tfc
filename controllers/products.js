@@ -209,7 +209,7 @@ productsRouter.put('/', userExtractor, upload.single('image'), async (request, r
       })
     }
 
-    const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(Number(product.id), product.name, product.description)
+    const { res: updateRes, err: updateErr } = await productsDAO.updateProductById(product.id, product.name, product.description)
 
     if (typeof updateErr !== 'undefined') {
       console.error(updateErr)

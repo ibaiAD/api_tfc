@@ -11,6 +11,17 @@ Authorization: Bearer {{authorization}}
 
 ###
 
+# With id as String Int
+DELETE  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "id": "61"
+}
+
+###
+
 # Non Existing product
 DELETE  {{baseUrl}}/api/products
 content-type: application/json
@@ -38,7 +49,7 @@ content-type: application/json
 Authorization: Bearer {{authorization}}
 
 {
-  "id": "41"
+  "id": "id"
 }
 
 ###
