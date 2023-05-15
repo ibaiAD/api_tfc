@@ -95,21 +95,23 @@ a:active[href^="/"] {
 }
 
 .left {
-  flex: 1 1;
+  flex: 0 0 30rem;
   font-size: 1.4rem;
+  position: relative;
 }
 
-/* TODO: Fiexed menu with vertical scroll */
-.left__menu {
-  position: fixed;
+.menu-container {
+  max-height: 80vh;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  overflow: auto;
 }
 
 /* Inicio subindices */
 ol {
   list-style-type: none;
   counter-reset: item;
-  margin: 0;
-  padding: 0;
 }
 
 ol>li {
@@ -135,13 +137,12 @@ li ol>li:before {
 /* Fin subindices */
 
 .documentation {
-  flex: 4 2;
+  flex: 1 1;
   font-size: 1.6rem;
-  /*TODO DELETE AFTER*/
 }
 
 .playground {
-  flex: 4 2;
+  flex: 1 1;
 }
 
 section {
@@ -187,6 +188,18 @@ article:not(:last-of-type) {
 
 article p+p {
   margin-top: 1rem;
+}
+
+article table {
+  min-width: 80%;
+  border-collapse: collapse;
+}
+
+article table td,
+article table th {
+  border: 1px solid black;
+  padding: .5rem 1rem;
+  text-align: left;
 }
 
 .quaternary-heading {
@@ -250,7 +263,7 @@ article ul li:not(:last-child) {
     display: block;
   }
 
-  .left__menu {
+  .menu-container {
     position: static;
   }
 }
