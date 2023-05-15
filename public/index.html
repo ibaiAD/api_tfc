@@ -44,21 +44,31 @@
             <li><a href="#tool-6">Multer</a></li>
           </ol>
         </li>
-        <li><a href="#">Endpoints</a>
+        <li><a href="#endpoints">Endpoints</a>
           <ol>
-            <li><a href="#">Login</a>
+            <li><a href="#login">Login</a>
               <ol>
-                <li><a href="#">POST /api/login</a></li>
+                <li><a href="#login-post">POST /api/login</a></li>
               </ol>
             </li>
-            <li><a href="#">Users</a>
+            <li><a href="#users">Users</a>
               <ol>
-                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit amet.</a></li>
+                <li><a href="#users-get">GET /api/users</a></li>
+                <li><a href="#users-post">POST /api/users</a></li>
+                <li><a href="#users-delete">DELETE /api/users</a></li>
+                <li><a href="#users-put">PUT /api/users</a></li>
+                <li><a href="#users-get-username">GET /api/users/:username</a></li>
               </ol>
             </li>
-            <li><a href="#">Products</a></li>
+            <li><a href="#products">Products</a>
+              <ol>
+                <li><a href="#products-get">GET /api/products</a></li>
+                <li><a href="#products-post">POST /api/products</a></li>
+                <li><a href="#products-delete">DELETE /api/products</a></li>
+                <li><a href="#products-put">PUT /api/products</a></li>
+                <li><a href="#products-get-id">GET /api/products/:id</a></li>
+              </ol>
+            </li>
           </ol>
         </li>
         <li><a href="#">Elemento link lista</a></li>
@@ -485,14 +495,61 @@
       <!-- section endpoints -->
       <section id="endpoints">
         <h2 class="secondary-heading">4. Endpoints</h2>
-        <section class="endpoints_login sub-section">
+        <section class="endpoints__login sub-section" id="login">
           <h3 class="tertiary-heading">4.1. Login</h3>
           <article id="login-post">
             <h4 class="quaternary-heading">4.1.1. POST /api/login</h4>
           </article>
         </section>
 
+        <section class="endpoints__users sub-section" id="users">
+          <h3 class="tertiary-heading">4.2. Users</h3>
+          <article id="users-get">
+            <h4 class="quaternary-heading">4.2.1. GET /api/users</h4>
+          </article>
 
+          <article id="users-post">
+            <h4 class="quaternary-heading">4.2.2. POST /api/users</h4>
+          </article>
+
+          <article id="users-delete">
+            <h4 class="quaternary-heading">4.2.3. DELETE /api/users</h4>
+          </article>
+
+          <article id="users-put">
+            <h4 class="quaternary-heading">4.2.4. PUT /api/users</h4>
+          </article>
+
+          <!-- own endpoint? -->
+          <article id="users-get-username">
+            <h4 class="quaternary-heading">4.2.5. GET /api/users/:username</h4>
+          </article>
+        </section>
+
+        <section class="endpoints__products sub-section" id="products">
+          <h3 class="tertiary-heading">4.3. Products</h3>
+          <article id="products-get">
+            <h4 class="quaternary-heading">4.3.1. GET /api/products</h4>
+          </article>
+
+          <article id="products-post">
+            <h4 class="quaternary-heading">4.3.2. POST /api/products</h4>
+          </article>
+
+          <article id="products-delete">
+            <h4 class="quaternary-heading">4.3.3. DELETE /api/products</h4>
+          </article>
+
+          <article id="products-put">
+            <h4 class="quaternary-heading">4.3.4. PUT /api/products</h4>
+          </article>
+          
+          <!-- own endpoint? -->
+          <article id="products-get-id">
+            <h4 class="quaternary-heading">4.3.5. GET /api/products/:id</h4>
+          </article>
+
+        </section>
 
       </section>
 

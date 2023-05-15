@@ -99,6 +99,7 @@ a:active[href^="/"] {
   font-size: 1.4rem;
 }
 
+/* TODO: Fiexed menu with vertical scroll */
 .left__menu {
   position: fixed;
 }

@@ -1,7 +1,7 @@
 const postProductForm = document.querySelector('#post-product-container form#post-product')
 const updateProductForm = document.querySelector('#put-product-container form#update-product')
 
-postProductForm.addEventListener('submit', (e) => {
+postProductForm?.addEventListener('submit', (e) => {
   e.preventDefault()
   const token = postProductForm.querySelector('#token').value
   const formData = new FormData(postProductForm)
@@ -17,7 +17,7 @@ postProductForm.addEventListener('submit', (e) => {
   })
 })
 
-updateProductForm.addEventListener('submit', (e) => {
+updateProductForm?.addEventListener('submit', (e) => {
   e.preventDefault()
   const token = updateProductForm.querySelector('#token').value
   const formData = new FormData(updateProductForm)
