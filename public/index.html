@@ -502,8 +502,7 @@
           <h3 class="tertiary-heading">4.1. Login</h3>
           <article id="login-post">
             <h4 class="quaternary-heading">4.1.1. POST /api/login</h4>
-            <p>Ruta para logearse</p>
-            <p>content-type: application/json</p>
+            <p class="mb-small">Ruta para que los usuarios registrados se logeen</p>
             <table class="login-post__fields">
               <thead>
                 <tr>
@@ -531,15 +530,15 @@
                 </tr>
               </tbody>
             </table>
-            <div>
+            <div class="code-container">
               <pre>
 POST {{baseUrl}}/api/login
 content-type: application/json
 
-  {
-    "userName": "Alias",
-    "password": "p4ssw0rd"
-  }
+{
+  "userName": "Alias",
+  "password": "p4ssw0rd"
+}
               </pre>
             </div>
             <table class="login-post__responses">
@@ -576,14 +575,233 @@ content-type: application/json
           <h3 class="tertiary-heading">4.2. Users</h3>
           <article id="users-get">
             <h4 class="quaternary-heading">4.2.1. GET /api/users</h4>
+            <p class="mb-small">Ruta para consultar todos los usuarios registrados</p>
+            <!--
+            <table class="users-get__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>userName</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>20 caracteres</td>
+                  <td>Nombre de usuario registrado en la base de datos</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>Sin límite *</td>
+                  <td>Contraseña de dicho usuario</td>
+                </tr>
+              </tbody>
+            </table>
+            -->
+            <div class="code-container">
+              <pre>
+GET {{baseUrl}}/api/users
+              </pre>
+            </div>
+            <table class="users-get__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <!-- // TODO
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "userName", "token" }</td>
+                  <td>Usuario y contraseña correctos</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": "invalid user or password" }</td>
+                  <td>Usuario y/o contraseña incorrectos</td>
+                </tr>
+              </tbody>
+              -->
+            </table>
           </article>
 
           <article id="users-post">
             <h4 class="quaternary-heading">4.2.2. POST /api/users</h4>
+            <p class="mb-small">Ruta para que un usuario se registre</p>
+            <table class="users-post__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>userName</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>20 caracteres</td>
+                  <td>Nombre de usuario con el que desea registrarse</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>50 caracteres</td>
+                  <td>Nombre real del usuario</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>String</td>
+                  <td>no</td>
+                  <td>200 caracteres</td>
+                  <td>Descripción del usuario</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>Sin límite *</td>
+                  <td>Contraseña del usuario</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+# With all the fields (required & not-required)
+POST {{baseUrl}}/api/users
+content-type: application/json
+                
+{
+  "userName": "Alias",
+  "name": "Prueba Post",
+  "description": "Descripcion del usuario ...",
+  "password": "p4ssw0rd"
+}
+
+# Without not-required
+POST {{baseUrl}}/api/users
+content-type: application/json
+
+{
+  "userName": "Alias",
+  "name": "Prueba Post",
+  "password": "p4ssw0rd"
+}
+              </pre>
+            </div>
+            <table class="users-post__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <!-- // TODO
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "userName", "token" }</td>
+                  <td>Usuario y contraseña correctos</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": "invalid user or password" }</td>
+                  <td>Usuario y/o contraseña incorrectos</td>
+                </tr>
+              </tbody>
+              -->
+            </table>
           </article>
 
           <article id="users-delete">
             <h4 class="quaternary-heading">4.2.3. DELETE /api/users</h4>
+            <p>Ruta para eliminar un usuario</p>
+            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <table class="users-delete__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>userName</td>
+                  <td>String</td>
+                  <td>si</td>
+                  <td>20 caracteres</td>
+                  <td>Nombre del usuario que se desea eliminar</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+DELETE {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "userName": "Pruebas"
+}
+                
+              </pre>
+            </div>
+            <table class="users-delete__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <!-- // TODO
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "userName", "token" }</td>
+                  <td>Usuario y contraseña correctos</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": "invalid user or password" }</td>
+                  <td>Usuario y/o contraseña incorrectos</td>
+                </tr>
+              </tbody>
+              -->
+            </table>
           </article>
 
           <article id="users-put">

@@ -49,6 +49,10 @@ article {
   display: table;
 }
 
+.mb-small {
+  margin-bottom: 1rem;
+}
+
 /* UTILITIES <---------------- */
 
 a {
@@ -191,7 +195,7 @@ article p+p {
 }
 
 article table {
-  min-width: 80%;
+  min-width: 100%;
   border-collapse: collapse;
 }
 
