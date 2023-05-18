@@ -96,7 +96,7 @@ usersRouter.delete('/', userExtractor, async (request, response) => {
     }
 
     if (!(user.role === USER_ROLES.admin || user.id === userToDelete.id)) {
-      return response.status(401).send({ 'error': 'invalid user' })
+      return response.status(403).send({ 'error': 'invalid user' })
     }
   } catch (error) {
     console.error(error)
@@ -150,7 +150,7 @@ usersRouter.put('/', userExtractor, async (request, response) => {
     }
 
     if (!(user.role === USER_ROLES.admin || user.id === getRes.id)) {
-      return response.status(401).send({ 'error': 'invalid user' })
+      return response.status(403).send({ 'error': 'invalid user' })
     }
 
   } catch (error) {

@@ -112,7 +112,7 @@ productsRouter.delete('/', userExtractor, async (request, response) => {
     }
 
     if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
-      return response.status(401).send({ 'error': 'invalid user' })
+      return response.status(403).send({ 'error': 'invalid user' })
     }
 
   } catch (error) {
@@ -175,7 +175,7 @@ productsRouter.put('/', userExtractor, upload.single('image'), async (request, r
     }
 
     if (!(user.role === USER_ROLES.admin || user.id === getRes.userId)) {
-      return response.status(401).send({ 'error': 'invalid user' })
+      return response.status(403).send({ 'error': 'invalid user' })
     }
 
   } catch (error) {

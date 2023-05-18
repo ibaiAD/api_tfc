@@ -517,14 +517,14 @@
                 <tr>
                   <td>userName</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>20 caracteres</td>
                   <td>Nombre de usuario registrado en la base de datos</td>
                 </tr>
                 <tr>
                   <td>password</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>Sin límite *</td>
                   <td>Contraseña de dicho usuario</td>
                 </tr>
@@ -565,6 +565,11 @@ content-type: application/json
                   <td>{ "error": "invalid user or password" }</td>
                   <td>Usuario y/o contraseña incorrectos</td>
                 </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
               </tbody>
             </table>
 
@@ -576,35 +581,6 @@ content-type: application/json
           <article id="users-get">
             <h4 class="quaternary-heading">4.2.1. GET /api/users</h4>
             <p class="mb-small">Ruta para consultar todos los usuarios registrados</p>
-            <!--
-            <table class="users-get__fields">
-              <thead>
-                <tr>
-                  <th>Campo</th>
-                  <th>Tipo</th>
-                  <th>Required</th>
-                  <th>Longitud máxima</th>
-                  <th>Descripción</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>userName</td>
-                  <td>String</td>
-                  <td>si</td>
-                  <td>20 caracteres</td>
-                  <td>Nombre de usuario registrado en la base de datos</td>
-                </tr>
-                <tr>
-                  <td>password</td>
-                  <td>String</td>
-                  <td>si</td>
-                  <td>Sin límite *</td>
-                  <td>Contraseña de dicho usuario</td>
-                </tr>
-              </tbody>
-            </table>
-            -->
             <div class="code-container">
               <pre>
 GET {{baseUrl}}/api/users
@@ -618,25 +594,18 @@ GET {{baseUrl}}/api/users
                   <th>Motivo</th>
                 </tr>
               </thead>
-              <!-- // TODO
               <tbody>
                 <tr>
                   <td>200 - OK</td>
-                  <td>{ "userName", "token" }</td>
-                  <td>Usuario y contraseña correctos</td>
+                  <td>[{ "id", "userName", "name", "description", "role" }, ...]</td>
+                  <td></td>
                 </tr>
                 <tr>
-                  <td>400 - Bad Request</td>
-                  <td>{ "error": descripción del error }</td>
-                  <td>Algún parámetro falta o es incorrecto</td>
-                </tr>
-                <tr>
-                  <td>401 - Unauthorized</td>
-                  <td>{ "error": "invalid user or password" }</td>
-                  <td>Usuario y/o contraseña incorrectos</td>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
                 </tr>
               </tbody>
-              -->
             </table>
           </article>
 
@@ -657,28 +626,28 @@ GET {{baseUrl}}/api/users
                 <tr>
                   <td>userName</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>20 caracteres</td>
                   <td>Nombre de usuario con el que desea registrarse</td>
                 </tr>
                 <tr>
                   <td>name</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>50 caracteres</td>
                   <td>Nombre real del usuario</td>
                 </tr>
                 <tr>
                   <td>description</td>
                   <td>String</td>
-                  <td>no</td>
+                  <td>No</td>
                   <td>200 caracteres</td>
                   <td>Descripción del usuario</td>
                 </tr>
                 <tr>
                   <td>password</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>Sin límite *</td>
                   <td>Contraseña del usuario</td>
                 </tr>
@@ -716,12 +685,11 @@ content-type: application/json
                   <th>Motivo</th>
                 </tr>
               </thead>
-              <!-- // TODO
               <tbody>
                 <tr>
-                  <td>200 - OK</td>
-                  <td>{ "userName", "token" }</td>
-                  <td>Usuario y contraseña correctos</td>
+                  <td>201 - Created</td>
+                  <td>{ "id", "userName", "name", "description", "role" }</td>
+                  <td>Usuario creado correctamente</td>
                 </tr>
                 <tr>
                   <td>400 - Bad Request</td>
@@ -729,12 +697,16 @@ content-type: application/json
                   <td>Algún parámetro falta o es incorrecto</td>
                 </tr>
                 <tr>
-                  <td>401 - Unauthorized</td>
-                  <td>{ "error": "invalid user or password" }</td>
-                  <td>Usuario y/o contraseña incorrectos</td>
+                  <td>409 - Conflict</td>
+                  <td>{ "error": { "target": "User_userName_key" } }</td>
+                  <td>Ya existe un usuario con ese userName</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
                 </tr>
               </tbody>
-              -->
             </table>
           </article>
 
@@ -756,7 +728,7 @@ content-type: application/json
                 <tr>
                   <td>userName</td>
                   <td>String</td>
-                  <td>si</td>
+                  <td>Si</td>
                   <td>20 caracteres</td>
                   <td>Nombre del usuario que se desea eliminar</td>
                 </tr>
@@ -769,9 +741,8 @@ content-type: application/json
 Authorization: Bearer {{authorization}}
                 
 {
-  "userName": "Pruebas"
-}
-                
+  "userName": "Alias"
+}                
               </pre>
             </div>
             <table class="users-delete__responses">
@@ -782,12 +753,11 @@ Authorization: Bearer {{authorization}}
                   <th>Motivo</th>
                 </tr>
               </thead>
-              <!-- // TODO
               <tbody>
                 <tr>
-                  <td>200 - OK</td>
-                  <td>{ "userName", "token" }</td>
-                  <td>Usuario y contraseña correctos</td>
+                  <td>204 - No Content</td>
+                  <td></td>
+                  <td>Usuario eliminado correctamente</td>
                 </tr>
                 <tr>
                   <td>400 - Bad Request</td>
@@ -796,16 +766,150 @@ Authorization: Bearer {{authorization}}
                 </tr>
                 <tr>
                   <td>401 - Unauthorized</td>
-                  <td>{ "error": "invalid user or password" }</td>
-                  <td>Usuario y/o contraseña incorrectos</td>
+                  <td>{ "error": "token expired" }</td>
+                  <td>El token ha caducado</td>
                 </tr>
+                <tr>
+                  <td>403 - Forbidden</td>
+                  <td>{ "error": "invalid user" }</td>
+                  <td>Solo el propio usuario o un administrador puede eliminar</td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "user not found" }</td>
+                  <td>El usuario que intenta eliminar no existe</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+
               </tbody>
-              -->
             </table>
           </article>
 
           <article id="users-put">
             <h4 class="quaternary-heading">4.2.4. PUT /api/users</h4>
+            <p>Ruta para modificar un usuario</p>
+            <p>Require de autorización con token del tipo Authorization: Bearer</p>
+            <p class="mb-small">Solo un usuario con rol (role) 'admin' puede modificar el rol de un usuario</p>
+            <table class="users-delete__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>String o Int</td>
+                  <td>Si</td>
+                  <td>Sin límite *</td>
+                  <td>Id del usuario que desea modificar</td>
+                </tr>
+                <tr>
+                  <td>userName</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>20 caracteres</td>
+                  <td>Nuevo nombre de usuario</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>50 caracteres</td>
+                  <td>Nuevo nombre real del usuario</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>200 caracteres</td>
+                  <td>Nueva descripción del usuario</td>
+                </tr>
+                <tr>
+                  <td>password</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>Sin límite *</td>
+                  <td>Nueva contraseña del usuario</td>
+                </tr>
+                <tr>
+                  <td>role</td>
+                  <td>String *</td>
+                  <td>No</td>
+                  <td>20 caracteres</td>
+                  <td>Nuevo rol del usuario</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+PUT {{baseUrl}}/api/users
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "id": 12,
+  "userName": "Pruebas",
+  "name": "Nuevo nombre",
+  "description": "Nueva descripción"
+}                
+              </pre>
+            </div>
+            <table class="users-delete__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "id", "userName", "name", "description", "role" }</td>
+                  <td>Usuario actualizado correctamente</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": "token expired" }</td>
+                  <td>El token ha caducado</td>
+                </tr>
+                <tr>
+                  <td>403 - Forbidden</td>
+                  <td>{ "error": "invalid user" }</td>
+                  <td>Solo el propio usuario o un administrador puede modificar</td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "user not found" }</td>
+                  <td>El usuario que intenta modificar no existe</td>
+                </tr>
+                <tr>
+                  <td>409 - Conflict</td>
+                  <td>{ "error": { "target": "User_userName_key" } }</td>
+                  <td>Ya existe un usuario con ese userName</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+
+              </tbody>
+            </table>
           </article>
 
           <!-- own endpoint? -->
