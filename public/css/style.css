@@ -145,6 +145,10 @@ li ol>li:before {
   font-size: 1.6rem;
 }
 
+.documentation table {
+  font-size: 1.4rem;
+}
+
 .playground {
   flex: 1 1;
 }

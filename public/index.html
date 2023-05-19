@@ -766,8 +766,8 @@ Authorization: Bearer {{authorization}}
                 </tr>
                 <tr>
                   <td>401 - Unauthorized</td>
-                  <td>{ "error": "token expired" }</td>
-                  <td>El token ha caducado</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El token falta, no es válido o ha caducado</td>
                 </tr>
                 <tr>
                   <td>403 - Forbidden</td>
@@ -884,8 +884,8 @@ Authorization: Bearer {{authorization}}
                 </tr>
                 <tr>
                   <td>401 - Unauthorized</td>
-                  <td>{ "error": "token expired" }</td>
-                  <td>El token ha caducado</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El token falta, no es válido o ha caducado</td>
                 </tr>
                 <tr>
                   <td>403 - Forbidden</td>
@@ -915,6 +915,39 @@ Authorization: Bearer {{authorization}}
           <!-- own endpoint? -->
           <article id="users-get-username">
             <h4 class="quaternary-heading">4.2.5. GET /api/users/:username</h4>
+            <p>Ruta para consultar la información de un usuario por su nombre de usuario.</p>
+            <p class="mb-small">:username equivale al nombre de usuario que quieras consultar (sin los dos puntos).</p>
+            <div class="code-container">
+              <pre>
+GET {{baseUrl}}/api/users/Alias
+              </pre>
+            </div>
+            <table class="users-get-username__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "id", "userName", "name", "description", "role" }</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "user not found" }</td>
+                  <td>El usuario que intenta consultar no existe</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+              </tbody>
+            </table>
           </article>
         </section>
 
@@ -922,10 +955,119 @@ Authorization: Bearer {{authorization}}
           <h3 class="tertiary-heading">4.3. Products</h3>
           <article id="products-get">
             <h4 class="quaternary-heading">4.3.1. GET /api/products</h4>
+            <p class="mb-small">Ruta para consultar todos los productos registrados</p>
+            <div class="code-container">
+              <pre>
+GET {{baseUrl}}/api/products
+              </pre>
+            </div>
+            <table class="users-get__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>[{ "id", "name", "description", "userId" }, ...]</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+              </tbody>
+            </table>
           </article>
 
           <article id="products-post">
             <h4 class="quaternary-heading">4.3.2. POST /api/products</h4>
+            <p>Ruta para crear un nuevo producto</p>
+            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <table class="users-delete__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>Si</td>
+                  <td>80 caracteres</td>
+                  <td>Nombre del producto</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>200 caracteres</td>
+                  <td>Descripción del producto</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+# With all the fields (required & not-required) and token
+POST {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "name": "Producto Prueba A",
+  "description": "Descripcion del producto ..."
+}
+                
+# Without not-required
+POST {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+
+{
+  "name": "Producto Prueba NR"
+}
+              </pre>
+            </div>
+            <table class="users-delete__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>201 - Created</td>
+                  <td>{ "id", "name", "description", "userId" }</td>
+                  <td>Producto creado correctamente</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El token falta, no es válido o ha caducado</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>                
+              </tbody>
+            </table>
           </article>
 
           <article id="products-delete">
