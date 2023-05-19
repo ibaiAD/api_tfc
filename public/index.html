@@ -794,7 +794,7 @@ Authorization: Bearer {{authorization}}
             <p>Ruta para modificar un usuario</p>
             <p>Require de autorización con token del tipo Authorization: Bearer</p>
             <p class="mb-small">Solo un usuario con rol (role) 'admin' puede modificar el rol de un usuario</p>
-            <table class="users-delete__fields">
+            <table class="users-put__fields">
               <thead>
                 <tr>
                   <th>Campo</th>
@@ -863,7 +863,7 @@ Authorization: Bearer {{authorization}}
 }                
               </pre>
             </div>
-            <table class="users-delete__responses">
+            <table class="users-put__responses">
               <thead>
                 <tr>
                   <th>Status</th>
@@ -934,7 +934,7 @@ GET {{baseUrl}}/api/users/Alias
                 <tr>
                   <td>200 - OK</td>
                   <td>{ "id", "userName", "name", "description", "role" }</td>
-                  <td></td>
+                  <td>Existe un usuario registrado con ese nombre</td>
                 </tr>
                 <tr>
                   <td>404 - Not Found</td>
@@ -961,7 +961,7 @@ GET {{baseUrl}}/api/users/Alias
 GET {{baseUrl}}/api/products
               </pre>
             </div>
-            <table class="users-get__responses">
+            <table class="products-get__responses">
               <thead>
                 <tr>
                   <th>Status</th>
@@ -988,7 +988,7 @@ GET {{baseUrl}}/api/products
             <h4 class="quaternary-heading">4.3.2. POST /api/products</h4>
             <p>Ruta para crear un nuevo producto</p>
             <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
-            <table class="users-delete__fields">
+            <table class="products-post__fields">
               <thead>
                 <tr>
                   <th>Campo</th>
@@ -1037,7 +1037,7 @@ Authorization: Bearer {{authorization}}
 }
               </pre>
             </div>
-            <table class="users-delete__responses">
+            <table class="products-post__responses">
               <thead>
                 <tr>
                   <th>Status</th>
@@ -1065,26 +1065,237 @@ Authorization: Bearer {{authorization}}
                   <td>500 - Internal Server Error</td>
                   <td>{ "error": "something went wrong" }</td>
                   <td>Algún problema con el servidor o la base de datos</td>
-                </tr>                
+                </tr>
               </tbody>
             </table>
           </article>
 
           <article id="products-delete">
             <h4 class="quaternary-heading">4.3.3. DELETE /api/products</h4>
+            <p>Ruta para eliminar un producto</p>
+            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <table class="products-delete__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>String o Int</td>
+                  <td>Si</td>
+                  <td>Sin límite *</td>
+                  <td>Id del producto que desea eliminar</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+# With all the fields (required & not-required) and token
+DELETE  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "id": 42
+}
+                
+# With id as String Int
+DELETE  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "id": "61"
+}
+              </pre>
+            </div>
+            <table class="products-delete__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>204 - No Content</td>
+                  <td></td>
+                  <td>Producto eliminado correctamente</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El token falta, no es válido o ha caducado</td>
+                </tr>
+                <tr>
+                  <td>403 - Forbidden</td>
+                  <td>{ "error": "invalid user" }</td>
+                  <td>Solo el propio usuario que lo creó o un administrador puede eliminar un producto</td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "product not found" }</td>
+                  <td>El producto que intenta eliminar no existe</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+
+              </tbody>
+            </table>
           </article>
 
           <article id="products-put">
             <h4 class="quaternary-heading">4.3.4. PUT /api/products</h4>
+            <p>Ruta para modificar un producto</p>
+            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <table class="products-put__fields">
+              <thead>
+                <tr>
+                  <th>Campo</th>
+                  <th>Tipo</th>
+                  <th>Required</th>
+                  <th>Longitud máxima</th>
+                  <th>Descripción</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>id</td>
+                  <td>String o Int</td>
+                  <td>Si</td>
+                  <td>Sin límite *</td>
+                  <td>Id del producto que desea modificar</td>
+                </tr>
+                <tr>
+                  <td>name</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>80 caracteres</td>
+                  <td>Nuevo nombre del producto</td>
+                </tr>
+                <tr>
+                  <td>description</td>
+                  <td>String</td>
+                  <td>No</td>
+                  <td>200 caracteres</td>
+                  <td>Nueva descripción del producto</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="code-container">
+              <pre>
+PUT  {{baseUrl}}/api/products
+content-type: application/json
+Authorization: Bearer {{authorization}}
+                
+{
+  "id": 50,
+  "name": "Edited name",
+  "description": "Edited description"
+}                              
+              </pre>
+            </div>
+            <table class="products-put__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "id", "name", "description", "userId" }</td>
+                  <td>Producto actualizado correctamente</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>Algún parámetro falta o es incorrecto</td>
+                </tr>
+                <tr>
+                  <td>401 - Unauthorized</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El token falta, no es válido o ha caducado</td>
+                </tr>
+                <tr>
+                  <td>403 - Forbidden</td>
+                  <td>{ "error": "invalid user" }</td>
+                  <td>Solo el propio usuario que lo creó o un administrador puede editar un producto</td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "product not found" }</td>
+                  <td>El producto que intenta modificar no existe</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+              </tbody>
+            </table>
           </article>
 
           <!-- own endpoint? -->
           <article id="products-get-id">
             <h4 class="quaternary-heading">4.3.5. GET /api/products/:id</h4>
+            <p>Ruta para consultar la información de un producto por su id.</p>
+            <p class="mb-small">:id equivale al id de producto que quieras consultar (sin los dos puntos) y deber ser un número entero Int.</p>
+            <div class="code-container">
+              <pre>
+GET {{baseUrl}}/api/products/42
+              </pre>
+            </div>
+            <table class="products-get-id__responses">
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Mensaje</th>
+                  <th>Motivo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>200 - OK</td>
+                  <td>{ "id", "name", "description", "userId" }</td>
+                  <td>Existe un producto con ese id</td>
+                </tr>
+                <tr>
+                  <td>400 - Bad Request</td>
+                  <td>{ "error": descripción del error }</td>
+                  <td>El id no es un número entero (Int)</td>
+                </tr>
+                <tr>
+                  <td>404 - Not Found</td>
+                  <td>{ "error": "product not found" }</td>
+                  <td>El producto que intenta consultar no existe</td>
+                </tr>
+                <tr>
+                  <td>500 - Internal Server Error</td>
+                  <td>{ "error": "something went wrong" }</td>
+                  <td>Algún problema con el servidor o la base de datos</td>
+                </tr>
+              </tbody>
+            </table>
           </article>
-
         </section>
-
       </section>
 
       <section id="definitions">

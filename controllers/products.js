@@ -236,7 +236,7 @@ productsRouter.put('/', userExtractor, upload.single('image'), async (request, r
 productsRouter.get('/:id', async (request, response) => {
   const id = Number(request.params.id)
   if (isNaN(id)) {
-    return response.status(400).send({ "Provided String, expected Int": "id" })
+    return response.status(400).send({ 'error': { "Provided String, expected Int": "id" } })
   }
 
   try {
