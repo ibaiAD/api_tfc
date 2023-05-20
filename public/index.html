@@ -72,8 +72,8 @@
               </li>
             </ol>
           </li>
-          <li><a href="#">Elemento link lista</a></li>
           <li><a href="#definitions">Definiciones</a></li>
+          <li><a href="#references">Referencias</a></li>
         </ol>
       </div>
     </aside>
@@ -100,11 +100,11 @@
 
         <article id="introduction-2">
           <h3 class="tertiary-heading">1.2. ¿Por qué una API?</h3>
-          <p>Esta solución permite tener un <a href="#definition-backend" class="definition">back-end</a> totalmente
+          <p>Esta solución permite tener un <a href="#definition-backend" class="definition">backend*</a> totalmente
             desacoplado que puede ser consumido por distintos
-            <a href="#definition-frontend" class="definition">front-ends</a> (web, movil, escritorio, etc). Pudiendo
+            <a href="#definition-frontend" class="definition">frontends*</a> (web, movil, escritorio, etc). Pudiendo
             desarrollarse la solución o soluciones que más convengan
-            al cliente (aplicaciones nativas, PWA, etc).
+            al cliente (web, aplicaciones nativas, <a href="#definition-pwa" class="definition">PWA*</a>, etc).
           </p>
         </article>
       </section>
@@ -120,11 +120,10 @@
           </a>
           <p>
             Node.js es un entorno en tiempo de ejecución multiplataforma, de código abierto, para la capa del servidor
-            (pero no limitándose a ello) basado en el lenguaje de programación JavaScript, asíncrono, con <a
-              href="#">E/S*</a> de datos
-            en una arquitectura orientada a eventos y basado en el motor V8 de Google. Fue creado con el enfoque de ser
-            útil en la creación de programas de red altamente escalables, como por ejemplo, servidores web. Fue creado
-            por Ryan Dahl en 2009.
+            (pero no limitándose a ello) basado en el lenguaje de programación JavaScript, asíncrono, con E/S (Entrada /
+            Salida) de datos en una arquitectura orientada a eventos y basado en el motor V8 de Google. Fue creado con
+            el enfoque de ser útil en la creación de programas de red altamente escalables, como por ejemplo, servidores
+            web. Fue creado por Ryan Dahl en 2009.
           </p>
 
           <h4 class="quaternary-heading">Concurrencia</h4>
@@ -136,12 +135,14 @@
           <p>
             Este diseño de compartir un único hilo de ejecución entre todas
             las solicitudes atiende a necesidades de aplicaciones altamente concurrentes, en el que toda operación que
-            realice entradas y salidas debe tener una función <a href="#">callback*</a>.
+            realice entradas y salidas debe tener una función <a href="#definition-callback"
+              class="definition">callback*</a>.
           </p>
           <p>
             Un inconveniente de este
             enfoque de único hilo
-            de ejecución es que Node.js requiere de módulos adicionales como <a href="#">cluster*</a> para escalar la
+            de ejecución es que Node.js requiere de módulos adicionales como <a href="#definition-cluster"
+              class="definition">cluster*</a> para escalar la
             aplicación con el
             número de núcleos de procesamiento de la máquina en la que se ejecuta.
           </p>
@@ -180,7 +181,10 @@
             Node.js puede ser combinado con una base de datos documental (por ejemplo, MongoDB o CouchDB) y bases de
             datos relacionales como MySQL, PostgreSQL, entre otros, lo que permite desarrollar en un entorno de
             desarrollo JavaScript unificado. Con la adaptación de los patrones para desarrollo del lado del servidor
-            tales como MVC y sus variantes MVP, MVVM, etc. Node.js facilita la reutilización de código del mismo modelo
+            tales como <a href="#definition-mvc" class="definition">MVC*</a> y sus variantes <a href="#definition-mvp"
+              class="definition">MVP*</a>, <a href="#definition-mvvm" class="definition">MVVM*</a>, etc. Node.js
+            facilita
+            la reutilización de código del mismo modelo
             de interfaz entre el lado del cliente y el lado del servidor.
           </p>
           <h4 class="quaternary-heading">Bucle de eventos</h4>
@@ -201,7 +205,8 @@
             <img src="./img/express.png" alt="node.js" class="article__link__img">
           </a>
           <p>
-            Express es el framework web más popular de Node, y es la librería subyacente para un gran número de otros
+            Express es el <a href="#definition-framework" class="definition">framework*</a> web más popular de Node, y
+            es la librería subyacente para un gran número de otros
             frameworks web de Node populares. Proporciona mecanismos para:
           </p>
           <ul>
@@ -241,7 +246,8 @@
             <img src="./img/prisma.png" alt="node.js" class="article__link__img">
           </a>
           <p>
-            Prisma es un ORM de próxima generación de código abierto. Consta de las siguientes partes:
+            Prisma es un <a href="#definition-orm" class="definition">ORM*</a> de próxima generación de código abierto.
+            Consta de las siguientes partes:
           </p>
           <ul>
             <li>
@@ -251,7 +257,8 @@
               Prisma Migrate: Sistema de migraciones
             </li>
             <li>
-              Prisma Studio: <a href="#">GUI*</a> para ver y editar datos en tu base de datos.
+              Prisma Studio: <a href="#definition-gui" class="definition">GUI*</a> para ver y editar datos en tu base de
+              datos.
             </li>
           </ul>
           <p>
@@ -348,7 +355,7 @@
               Previsibilidad, todo permanece como fue inicialmente definido.
             </li>
             <li>
-              POO/OOP, añade interfaces.
+              <a href="#definition-oop" class="definition">POO/OOP*</a>, añade interfaces.
             </li>
           </ul>
           <h4 class="quaternary-heading">Desventajas</h4>
@@ -435,12 +442,13 @@
           </p>
         </article>
         <article id="tool-4" class="clearfix">
-          <h3 class="tertiary-heading">3.4. JWT - Jason Web Token</h3>
+          <h3 class="tertiary-heading">3.4. JWT - JSON Web Tokens</h3>
           <a href="https://jwt.io/" class="article__link" target="_blank">
             <img src="./img/jwt.png" alt="node.js" class="article__link__img">
           </a>
           <p>
-            JSON Web Token (abreviado JWT) es un estándar abierto basado en JSON propuesto por IETF (RFC 7519) para la
+            JSON Web Token (abreviado JWT) es un estándar abierto basado en <a href="#definition-json"
+              class="definition">JSON*</a> propuesto por IETF (RFC 7519) para la
             creación de tokens de acceso que permiten la propagación de identidad y privilegios (claims).
           </p>
           <p>
@@ -454,7 +462,7 @@
           </p>
           <p>
             Los JSON Web Tokens están diseñados para ser compactos, poder ser enviados en las URLs -URL-safe- y ser
-            utilizados en escenarios de Single Sign-On (SSO).
+            utilizados en escenarios de <a href="#definition-soo" class="definition">Single Sign-On (SSO)*</a>.
           </p>
           <p>
             Los privilegios de los JSON Web Tokens pueden ser utilizados para propagar la identidad de usuarios como
@@ -479,8 +487,8 @@
             para algunas distribuciones de Linux como SUSE Linux.
           </p>
           <p>
-            Hay implementaciones de bcrypt en C, C++, C#, Delphi, Elixir, Go, Java, JavaScript, Perl, PHP, Python, Ruby,
-            and other languages.
+            Hay implementaciones de bcrypt en C, C++, C#, Delphi, Elixir, Go, Java, JavaScript, Perl, PHP, Python, Ruby
+            y otros lenguajes.
           </p>
         </article>
         <article id="tool-6" class="clearfix">
@@ -1257,7 +1265,8 @@ Authorization: Bearer {{authorization}}
           <article id="products-get-id">
             <h4 class="quaternary-heading">4.3.5. GET /api/products/:id</h4>
             <p>Ruta para consultar la información de un producto por su id.</p>
-            <p class="mb-small">:id equivale al id de producto que quieras consultar (sin los dos puntos) y deber ser un número entero Int.</p>
+            <p class="mb-small">:id equivale al id de producto que quieras consultar (sin los dos puntos) y deber ser un
+              número entero Int.</p>
             <div class="code-container">
               <pre>
 GET {{baseUrl}}/api/products/42
@@ -1299,20 +1308,128 @@ GET {{baseUrl}}/api/products/42
       </section>
 
       <section id="definitions">
-        <h2 class="secondary-heading">N. Definiciones</h2>
+        <h2 class="secondary-heading">5. Definiciones</h2>
         <article id="definition-api">
-          <h3 class="tertiary-heading">API</h3>
-        </article>
-        <article id="definition-crud">
-          <h3 class="tertiary-heading">CRUD</h3>
-        </article>
-        <article id="definition-back-end">
-          <h3 class="tertiary-heading">Back-end</h3>
-        </article>
-        <article id="definition-front-end">
-          <h3 class="tertiary-heading">Front-end</h3>
+          <h3 class="tertiary-heading">API - Application programming interface</h3>
+          <p>
+            Una API ​es una pieza de código que permite a diferentes aplicaciones comunicarse entre sí y compartir
+            información y funcionalidades. Una API es un intermediario entre dos sistemas, que permite que una
+            aplicación se comunique con otra y pida datos o acciones específicas.
+          </p>
         </article>
 
+        <article id="definition-crud">
+          <h3 class="tertiary-heading">CRUD - Create, Read, Update, and Delete</h3>
+          <p>
+            CRUD es el acrónimo de "Crear, Leer, Actualizar y Borrar" (del original en inglés: Create, Read, Update and
+            Delete), que se usa para referirse a las funciones básicas en bases de datos o la capa de persistencia en un
+            software.
+          </p>
+          <p>
+            Se usa también a veces para describir convenciones de interfaz de usuario que facilita la vista, búsqueda y
+            modificación de la información; a menudo se usa en programación de formularios (forms) e informes (reports).
+          </p>
+        </article>
+
+        <article id="definition-backend">
+          <h3 class="tertiary-heading">Backend</h3>
+          <p>
+            Backend es la capa de acceso a datos de un software o cualquier dispositivo, que no es directamente
+            accesible por los usuarios. Además, contiene la lógica de la aplicación que maneja dichos datos.
+          </p>
+        </article>
+
+        <article id="definition-frontend">
+          <h3 class="tertiary-heading">Frontend</h3>
+          <p>
+            Frontend es la parte de un programa o dispositivo a la que un usuario puede acceder directamente. Son todas
+            las tecnologías de diseño y desarrollo web que corren en el navegador y que se encargan de la interactividad
+            con los usuarios.
+          </p>
+        </article>
+
+        <article id="definition-pwa">
+          <h3 class="tertiary-heading">PWA - Progressive Web Apps</h3>
+          <p>
+            Las aplicaciones web progresivas son aplicaciones web que utilizan APIs y funciones emergentes del navegador
+            web junto a una estrategia tradicional de mejora progresiva para ofrecer una aplicación nativa como la
+            experiencia del usuario para aplicaciones web multiplataforma. Las aplicaciones web progresivas son un
+            patrón de diseño útil, aunque no son un estándar formalizado.
+          </p>
+        </article>
+
+        <article id="definition-callback">
+          <h3 class="tertiary-heading">Callback</h3>
+          <p>
+            Una función de callback es una función que se pasa a otra función como un argumento, que luego se invoca
+            dentro de la función externa para completar algún tipo de rutina o acción.
+          </p>
+        </article>
+        <article id="definition-cluster">
+          <h3 class="tertiary-heading">Cluster</h3>
+          <p>
+            El término clúster (que significa 'grupo' o 'racimo') se aplica a los sistemas distribuidos de granjas de
+            computadoras unidos entre sí normalmente por una red de alta velocidad y que se comportan como si fuesen un
+            único servidor. A diferencia de la computacion en malla (computación grid), los clústeres de computadoras
+            tienen a cada nodo realizando la misma tarea, controlada y planificada por software.
+          </p>
+        </article>
+        <article id="definition-mvc">
+          <h3 class="tertiary-heading">MVC - Modelo-Vista-Controlador</h3>
+          <p>
+            MVC es un patrón en el diseño de software comúnmente utilizado para implementar interfaces de usuario, datos
+            y lógica de control. Enfatiza una separación entre la lógica de negocios y su visualización. Esta
+            "separación de preocupaciones" proporciona una mejor división del trabajo y una mejora de mantenimiento.
+          </p>
+        </article>
+        <article id="definition-mvp">
+          <h3 class="tertiary-heading">MVP</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-mvvm">
+          <h3 class="tertiary-heading">MVVM</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-framework">
+          <h3 class="tertiary-heading">Framework</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-orm">
+          <h3 class="tertiary-heading">ORM</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-gui">
+          <h3 class="tertiary-heading">GUI</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-oop">
+          <h3 class="tertiary-heading">OOP/POO</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-json">
+          <h3 class="tertiary-heading">JSON</h3>
+          <p>
+
+          </p>
+        </article>
+        <article id="definition-sso">
+          <h3 class="tertiary-heading">SSO</h3>
+          <p>
+
+          </p>
+        </article>
       </section>
 
 
