@@ -21,6 +21,8 @@ body {
 :root {
   --navigation-links: #333;
   --navigation-links-hover: orangered;
+  --external-links: #333;
+  --external-links-hover: blueviolet;
   --color-section: #ddd;
   --color-almost-white: #f7f7f7;
   --color-code-default: #cccccc;
@@ -57,6 +59,16 @@ article {
 
 a {
   text-decoration: none;
+}
+
+a:link,
+a:visited {
+  color: var(--external-links);
+}
+
+a:hover,
+a:active {
+  color: var(--external-links-hover);
 }
 
 /* ANCHORS AND NAV LINKS */
@@ -305,6 +317,16 @@ article ul li:not(:last-child) {
   .top-nav,
   .header {
     display: none;
+  }
+
+  section {
+    border: none;
+    background-color: #fff;
+  }
+
+  article {
+    border: none;
+    background-color: #fff;
   }
 
   .site-url {
