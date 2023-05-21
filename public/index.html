@@ -161,7 +161,7 @@
             El cuerpo de operaciones de base de Node.js está escrito en JavaScript con métodos de soporte escritos en
             C++.
           </p>
-
+          <div class="page-break">&nbsp;</div>
           <h4 class="quaternary-heading">Módulos</h4>
           <p>
             Node.js incorpora varios "módulos básicos" compilados en el propio binario, como por ejemplo el módulo de
@@ -238,7 +238,7 @@
             estructurar la app en un fichero o múltiples ficheros y usar cualquier estructura de directorios.
           </p>
         </article>
-
+        <div class="page-break">&nbsp;</div>
         <!-- article Prisma -->
         <article id="technology-3" class="clearfix">
           <h3 class="tertiary-heading">2.3. Prisma<span class="site-url"> - https://www.prisma.io/</span></h3>
@@ -332,7 +332,7 @@
             datos, lo que hace a MySQL ideal para este tipo de aplicaciones.
           </p>
         </article>
-
+        <div class="page-break">&nbsp;</div>
         <!-- article JS vs TS -->
         <article id="technology-5" class="clearfix">
           <h3 class="tertiary-heading">2.5. JavaScript vs TypeScript<span class="site-url"> -
@@ -397,6 +397,7 @@
             del sitio web de npm. El administrador de paquetes y el registro son administrados por npm, Inc.
           </p>
         </article>
+        <div class="page-break">&nbsp;</div>
         <article id="tool-2" class="clearfix">
           <h3 class="tertiary-heading">3.2. REST Client<span class="site-url"> -
               https://marketplace.visualstudio.com/items?itemName=humao.rest-client</span></h3>
@@ -472,6 +473,7 @@
             otro tipo de privilegios requeridos.
           </p>
         </article>
+        <div class="page-break">&nbsp;</div>
         <article id="tool-5" class="clearfix">
           <h3 class="tertiary-heading">3.5. Bcrypt</h3>
           <p>
@@ -542,8 +544,8 @@
             </table>
             <div class="code-container">
               <pre>
-POST {{baseUrl}}/api/login
-content-type: application/json
+<span class="code-pink">POST</span> {{baseUrl}}/api/login
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
 
 {
   "userName": "Alias",
@@ -593,7 +595,7 @@ content-type: application/json
             <p class="mb-small">Ruta para consultar todos los usuarios registrados</p>
             <div class="code-container">
               <pre>
-GET {{baseUrl}}/api/users
+<span class="code-pink">GET</span> {{baseUrl}}/api/users
               </pre>
             </div>
             <table class="users-get__responses">
@@ -666,8 +668,8 @@ GET {{baseUrl}}/api/users
             <div class="code-container">
               <pre>
 <span class="code-comment"># With all the fields (required & not-required)</span>
-POST {{baseUrl}}/api/users
-content-type: application/json
+<span class="code-pink">POST</span> {{baseUrl}}/api/users
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
                 
 {
   "userName": "Alias",
@@ -677,8 +679,8 @@ content-type: application/json
 }
 
 <span class="code-comment"># Without not-required</span>
-POST {{baseUrl}}/api/users
-content-type: application/json
+<span class="code-pink">POST</span> {{baseUrl}}/api/users
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
 
 {
   "userName": "Alias",
@@ -723,7 +725,8 @@ content-type: application/json
           <article id="users-delete">
             <h4 class="quaternary-heading">4.2.3. DELETE /api/users</h4>
             <p>Ruta para eliminar un usuario</p>
-            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <p class="mb-small">Requiere de autorización con token del tipo <span
+                class="code-blue-dark">Authorization:</span> Bearer</p>
             <table class="users-delete__fields">
               <thead>
                 <tr>
@@ -746,9 +749,9 @@ content-type: application/json
             </table>
             <div class="code-container">
               <pre>
-DELETE {{baseUrl}}/api/users
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">DELETE</span> {{baseUrl}}/api/users
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "userName": "Alias"
@@ -802,7 +805,7 @@ Authorization: Bearer {{authorization}}
           <article id="users-put">
             <h4 class="quaternary-heading">4.2.4. PUT /api/users</h4>
             <p>Ruta para modificar un usuario</p>
-            <p>Require de autorización con token del tipo Authorization: Bearer</p>
+            <p>Requiere de autorización con token del tipo Authorization: Bearer</p>
             <p class="mb-small">Solo un usuario con rol (role) 'admin' puede modificar el rol de un usuario</p>
             <table class="users-put__fields">
               <thead>
@@ -861,9 +864,9 @@ Authorization: Bearer {{authorization}}
             </table>
             <div class="code-container">
               <pre>
-PUT {{baseUrl}}/api/users
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">PUT</span> {{baseUrl}}/api/users
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "id": 12,
@@ -929,7 +932,7 @@ Authorization: Bearer {{authorization}}
             <p class="mb-small">:username equivale al nombre de usuario que quieras consultar (sin los dos puntos).</p>
             <div class="code-container">
               <pre>
-GET {{baseUrl}}/api/users/Alias
+<span class="code-pink">GET</span> {{baseUrl}}/api/users/Alias
               </pre>
             </div>
             <table class="users-get-username__responses">
@@ -968,7 +971,7 @@ GET {{baseUrl}}/api/users/Alias
             <p class="mb-small">Ruta para consultar todos los productos registrados</p>
             <div class="code-container">
               <pre>
-GET {{baseUrl}}/api/products
+<span class="code-pink">GET</span> {{baseUrl}}/api/products
               </pre>
             </div>
             <table class="products-get__responses">
@@ -993,11 +996,11 @@ GET {{baseUrl}}/api/products
               </tbody>
             </table>
           </article>
-
+          <div class="page-break">&nbsp;</div>
           <article id="products-post">
             <h4 class="quaternary-heading">4.3.2. POST /api/products</h4>
             <p>Ruta para crear un nuevo producto</p>
-            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <p class="mb-small">Requiere de autorización con token del tipo Authorization: Bearer</p>
             <table class="products-post__fields">
               <thead>
                 <tr>
@@ -1028,9 +1031,9 @@ GET {{baseUrl}}/api/products
             <div class="code-container">
               <pre>
 <span class="code-comment"># With all the fields (required & not-required) and token</span>
-POST {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">POST</span> {{baseUrl}}/api/products
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "name": "Producto Prueba A",
@@ -1038,9 +1041,9 @@ Authorization: Bearer {{authorization}}
 }
                 
 <span class="code-comment"># Without not-required</span>
-POST {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">POST</span> {{baseUrl}}/api/products
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
 
 {
   "name": "Producto Prueba NR"
@@ -1083,7 +1086,7 @@ Authorization: Bearer {{authorization}}
           <article id="products-delete">
             <h4 class="quaternary-heading">4.3.3. DELETE /api/products</h4>
             <p>Ruta para eliminar un producto</p>
-            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <p class="mb-small">Requiere de autorización con token del tipo Authorization: Bearer</p>
             <table class="products-delete__fields">
               <thead>
                 <tr>
@@ -1104,21 +1107,22 @@ Authorization: Bearer {{authorization}}
                 </tr>
               </tbody>
             </table>
+            <div class="page-break">&nbsp;</div>
             <div class="code-container">
               <pre>
 <span class="code-comment"># With all the fields (required & not-required) and token</span>
-DELETE  {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">DELETE</span> {{baseUrl}}/api/products
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "id": 42
 }
                 
 <span class="code-comment"># With id as String Int</span>
-DELETE  {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">DELETE</span> {{baseUrl}}/api/products
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "id": "61"
@@ -1172,7 +1176,7 @@ Authorization: Bearer {{authorization}}
           <article id="products-put">
             <h4 class="quaternary-heading">4.3.4. PUT /api/products</h4>
             <p>Ruta para modificar un producto</p>
-            <p class="mb-small">Require de autorización con token del tipo Authorization: Bearer</p>
+            <p class="mb-small">Requiere de autorización con token del tipo Authorization: Bearer</p>
             <table class="products-put__fields">
               <thead>
                 <tr>
@@ -1209,9 +1213,9 @@ Authorization: Bearer {{authorization}}
             </table>
             <div class="code-container">
               <pre>
-PUT  {{baseUrl}}/api/products
-content-type: application/json
-Authorization: Bearer {{authorization}}
+<span class="code-pink">PUT</span> {{baseUrl}}/api/products
+<span class="code-blue-dark">content-type:</span> <span class="code-orange">application/json</span>
+<span class="code-blue-dark">Authorization:</span> <span class="code-orange">Bearer {{authorization}}</span>
                 
 {
   "id": 50,
@@ -1220,6 +1224,7 @@ Authorization: Bearer {{authorization}}
 }                              
               </pre>
             </div>
+            <div class="page-break">&nbsp;</div>
             <table class="products-put__responses">
               <thead>
                 <tr>
@@ -1271,7 +1276,7 @@ Authorization: Bearer {{authorization}}
               número entero Int.</p>
             <div class="code-container">
               <pre>
-GET {{baseUrl}}/api/products/42
+<span class="code-pink">GET</span> {{baseUrl}}/api/products/42
               </pre>
             </div>
             <table class="products-get-id__responses">
@@ -1459,6 +1464,7 @@ GET {{baseUrl}}/api/products/42
             en una cadena de valores de preferencias del navegador.
           </p>
         </article>
+        <div class="page-break">&nbsp;</div>
         <article id="definition-sso">
           <h3 class="tertiary-heading">SSO - Single Sign-On</h3>
           <p>

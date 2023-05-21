@@ -25,6 +25,12 @@ body {
   --color-almost-white: #f7f7f7;
   --color-code-default: #cccccc;
   --color-code-comment: #6a9955;
+
+  --color-code-blue-light: #9cdcfe;
+  --color-code-blue-dark: #569cd6;
+  --color-code-pink: #c586c0;
+  --color-code-yellow: #e3d700;
+  --color-code-orange: #ce9178;
 }
 
 /* UTILITIES ----------------> */
@@ -223,6 +229,26 @@ article table th {
   color: var(--color-code-comment);
 }
 
+.code-pink {
+  color: var(--color-code-pink);
+}
+
+.code-yellow {
+  color: var(--color-code-yellow);
+}
+
+.code-blue-light {
+  color: var(--color-code-blue-light);
+}
+
+.code-blue-dark {
+  color: var(--color-code-blue-dark);
+}
+
+.code-orange {
+  color: var(--color-code-orange);
+}
+
 .quaternary-heading {
   font-size: 1.8rem;
   margin-bottom: 1rem;
@@ -271,6 +297,10 @@ article ul li:not(:last-child) {
     font-family: serif;
   }
 
+  .container {
+    display: block;
+  }
+
   .left,
   .top-nav,
   .header {
@@ -279,6 +309,11 @@ article ul li:not(:last-child) {
 
   .site-url {
     display: inline;
+  }
+
+  .page-break {
+    page-break-after: always;
+    height: 0;
   }
 
 }
