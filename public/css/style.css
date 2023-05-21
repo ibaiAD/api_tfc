@@ -23,26 +23,12 @@ body {
   --navigation-links-hover: orangered;
   --color-section: #ddd;
   --color-almost-white: #f7f7f7;
+  --color-code-default: #cccccc;
+  --color-code-comment: #6a9955;
 }
-
-/* Inicio ayudas para maquetar */
-
-/* body * {
-  border: 1px solid black;
-} */
-
-section {
-  border: 1px solid #777;
-}
-
-article {
-  border: 1px solid #999;
-
-}
-
-/* Fin ayudas para maquetar */
 
 /* UTILITIES ----------------> */
+
 .clearfix::after {
   content: "";
   clear: both;
@@ -54,6 +40,14 @@ article {
 }
 
 /* UTILITIES <---------------- */
+
+section {
+  border: 1px solid #777;
+}
+
+article {
+  border: 1px solid #999;
+}
 
 a {
   text-decoration: none;
@@ -99,7 +93,7 @@ a:active[href^="/"] {
 }
 
 .left {
-  flex: 0 0 30rem;
+  flex: 0 0 35rem;
   font-size: 1.4rem;
   position: relative;
 }
@@ -183,6 +177,12 @@ article:not(:last-of-type) {
   margin-bottom: 1rem;
 }
 
+.site-url {
+  font-size: 1.2rem;
+  font-weight: 400;
+  display: none;
+}
+
 .article__link {
   float: left;
   width: 15rem;
@@ -208,6 +208,19 @@ article table th {
   border: 1px solid black;
   padding: .5rem 1rem;
   text-align: left;
+}
+
+.code-container {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 3px;
+  background-color: #1f1f1f;
+  color: var(--color-code-default);
+
+}
+
+.code-comment {
+  color: var(--color-code-comment);
 }
 
 .quaternary-heading {
@@ -259,8 +272,13 @@ article ul li:not(:last-child) {
   }
 
   .left,
-  nav {
+  .top-nav,
+  .header {
     display: none;
+  }
+
+  .site-url {
+    display: inline;
   }
 
 }

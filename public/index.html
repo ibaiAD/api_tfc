@@ -114,7 +114,7 @@
         <h2 class="secondary-heading">2. Tecnologías</h2>
         <!-- article Node.js -->
         <article id="technology-1" class="clearfix">
-          <h3 class="tertiary-heading">2.1. Node.js</h3>
+          <h3 class="tertiary-heading">2.1. Node.js<span class="site-url"> - https://nodejs.org/</span></h3>
           <a href="https://nodejs.org/" class="article__link" target="_blank">
             <img src="./img/node.png" alt="node.js" class="article__link__img">
           </a>
@@ -200,7 +200,7 @@
 
         <!-- article Express.js -->
         <article id="technology-2" class="clearfix">
-          <h3 class="tertiary-heading">2.2. Express.js</h3>
+          <h3 class="tertiary-heading">2.2. Express.js<span class="site-url"> - https://expressjs.com/</span></h3>
           <a href="https://expressjs.com/" class="article__link" target="_blank">
             <img src="./img/express.png" alt="node.js" class="article__link__img">
           </a>
@@ -241,7 +241,7 @@
 
         <!-- article Prisma -->
         <article id="technology-3" class="clearfix">
-          <h3 class="tertiary-heading">2.3. Prisma</h3>
+          <h3 class="tertiary-heading">2.3. Prisma<span class="site-url"> - https://www.prisma.io/</span></h3>
           <a href="https://www.prisma.io/" class="article__link" target="_blank">
             <img src="./img/prisma.png" alt="node.js" class="article__link__img">
           </a>
@@ -311,7 +311,7 @@
 
         <!-- article MySQL -->
         <article id="technology-4" class="clearfix">
-          <h3 class="tertiary-heading">2.4. MySQL</h3>
+          <h3 class="tertiary-heading">2.4. MySQL<span class="site-url"> - https://www.mysql.com/</span></h3>
           <a href="https://www.mysql.com/" class="article__link" target="_blank">
             <img src="./img/mysql.png" alt="node.js" class="article__link__img">
           </a>
@@ -335,7 +335,8 @@
 
         <!-- article JS vs TS -->
         <article id="technology-5" class="clearfix">
-          <h3 class="tertiary-heading">2.5. JavaScript vs TypeScript</h3>
+          <h3 class="tertiary-heading">2.5. JavaScript vs TypeScript<span class="site-url"> -
+              https://www.typescriptlang.org/</span></h3>
           <a href="https://www.typescriptlang.org/" class="article__link" target="_blank">
             <img src="./img/jsvsts.jpg" alt="node.js" class="article__link__img">
           </a>
@@ -379,7 +380,7 @@
       <section id="other-tools">
         <h2 class="secondary-heading">3. Otras herramientas</h2>
         <article id="tool-1" class="clearfix">
-          <h3 class="tertiary-heading">3.1. npm</h3>
+          <h3 class="tertiary-heading">3.1. npm<span class="site-url"> - https://www.npmjs.com/</span></h3>
           <a href="https://www.npmjs.com/" class="article__link" target="_blank">
             <img src="./img/npm.png" alt="node.js" class="article__link__img">
           </a>
@@ -397,7 +398,8 @@
           </p>
         </article>
         <article id="tool-2" class="clearfix">
-          <h3 class="tertiary-heading">3.2. REST Client</h3>
+          <h3 class="tertiary-heading">3.2. REST Client<span class="site-url"> -
+              https://marketplace.visualstudio.com/items?itemName=humao.rest-client</span></h3>
           <a href="https://marketplace.visualstudio.com/items?itemName=humao.rest-client" class="article__link"
             target="_blank">
             <img src="./img/rest_client.png" alt="node.js" class="article__link__img">
@@ -427,7 +429,7 @@
 
         </article>
         <article id="tool-3" class="clearfix">
-          <h3 class="tertiary-heading">3.3. Nodemon</h3>
+          <h3 class="tertiary-heading">3.3. Nodemon<span class="site-url"> - https://nodemon.io/</span></h3>
           <a href="https://nodemon.io/" class="article__link" target="_blank">
             <img src="./img/nodemon.png" alt="node.js" class="article__link__img">
           </a>
@@ -442,7 +444,7 @@
           </p>
         </article>
         <article id="tool-4" class="clearfix">
-          <h3 class="tertiary-heading">3.4. JWT - JSON Web Tokens</h3>
+          <h3 class="tertiary-heading">3.4. JWT - JSON Web Tokens<span class="site-url"> - https://jwt.io/</span></h3>
           <a href="https://jwt.io/" class="article__link" target="_blank">
             <img src="./img/jwt.png" alt="node.js" class="article__link__img">
           </a>
@@ -663,7 +665,7 @@ GET {{baseUrl}}/api/users
             </table>
             <div class="code-container">
               <pre>
-# With all the fields (required & not-required)
+<span class="code-comment"># With all the fields (required & not-required)</span>
 POST {{baseUrl}}/api/users
 content-type: application/json
                 
@@ -674,7 +676,7 @@ content-type: application/json
   "password": "p4ssw0rd"
 }
 
-# Without not-required
+<span class="code-comment"># Without not-required</span>
 POST {{baseUrl}}/api/users
 content-type: application/json
 
@@ -1025,7 +1027,7 @@ GET {{baseUrl}}/api/products
             </table>
             <div class="code-container">
               <pre>
-# With all the fields (required & not-required) and token
+<span class="code-comment"># With all the fields (required & not-required) and token</span>
 POST {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
@@ -1035,7 +1037,7 @@ Authorization: Bearer {{authorization}}
   "description": "Descripcion del producto ..."
 }
                 
-# Without not-required
+<span class="code-comment"># Without not-required</span>
 POST {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
@@ -1104,7 +1106,7 @@ Authorization: Bearer {{authorization}}
             </table>
             <div class="code-container">
               <pre>
-# With all the fields (required & not-required) and token
+<span class="code-comment"># With all the fields (required & not-required) and token</span>
 DELETE  {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
@@ -1113,7 +1115,7 @@ Authorization: Bearer {{authorization}}
   "id": 42
 }
                 
-# With id as String Int
+<span class="code-comment"># With id as String Int</span>
 DELETE  {{baseUrl}}/api/products
 content-type: application/json
 Authorization: Bearer {{authorization}}
@@ -1469,6 +1471,34 @@ GET {{baseUrl}}/api/products/42
 
       <section id="references">
         <h2 class="secondary-heading">6. Referencias</h2>
+        <article>
+          <p>
+            Además de las páginas oficiales de las distintas tecnologías y herramientas, otros recursos que he utilizado
+            tanto para aprender a realizar la API, como para realizar esta documentación han sido:
+          </p>
+          <ul>
+            <li>
+              <a href="https://fullstackopen.com/">Full stack open</a><span> - https://fullstackopen.com/</span>
+              <p>Curso gratuito creado por la Universidad de Helsinki junto con otros socios.</p>
+            </li>
+            <li>
+              <a href="https://developer.mozilla.org/">MDN</a><span> - https://developer.mozilla.org/</span>
+              <p>Tanto para consultas técnicas como para algunas definiciones de esta misma documentación.</p>
+            </li>
+            <li>
+              <a href="https://stackoverflow.com/">Stack Overflow</a><span> - https://stackoverflow.com/</span>
+              <p>Más concretamente
+                <a
+                  href="https://stackoverflow.com/questions/15772394/how-to-upload-display-and-save-images-using-node-js-and-express">https://stackoverflow.com/questions/15772394/how-to-upload-display-and-save-images-using-node-js-and-express</a>
+                para la parte relacionada con la subida de imágenes de los productos.
+              </p>
+            </li>
+            <li>
+              <a href="https://es.wikipedia.org/">Wikipedia</a><span> - https://es.wikipedia.org/</span>
+              <p>Para algunas de las definiciones de esta documentación.</p>
+            </li>
+          </ul>
+        </article>
       </section>
 
     </main>
